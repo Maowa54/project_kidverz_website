@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Sour Gummy", sans-serif;
+}
+
+/* Custom Ping Animation for White Border */
+@keyframes ping-border {
+  0% {
+    box-shadow: 0 0 0 2px rgb(255, 255, 255); /* Initial small white border */
+  }
+  75% {
+    box-shadow: 0 0 0 5px rgb(255, 255, 255); /* Expand white border */
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgb(255, 255, 255); /* Return to original border size */
+  }
+}
+
+/* Apply the border ping animation */
+.animate-ping-border {
+  animation: ping-border 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.animated-border {
+  --borderColor: #f36303; /* Define the border color directly within the class */
+  position: relative;
+  width: auto;
+  margin: auto;
+  border: none; /* Removed the white border */
+  cursor: pointer;
+}
+
+.animated-border::before,
+.animated-border::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.animated-border::before {
+  top: -5px;
+  left: -5px;
+  border-top: 1px solid var(--borderColor);
+  border-left: 1px solid var(--borderColor);
+}
+
+.animated-border::after {
+  right: -5px;
+  bottom: -5px;
+  border-bottom: 1px solid var(--borderColor);
+  border-right: 1px solid var(--borderColor);
+}
+
+.animated-border:hover::before,
+.animated-border:hover::after {
+  width: calc(100% + 10px); /* Adjusted for smooth animation */
+  height: calc(100% + 10px);
+}
+
+
+/* index.css */
+@keyframes slow-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.slow-bounce {
+  animation: slow-bounce 4s infinite;
+}
+
+/* index.css */
+@keyframes slow-ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.slow-ping {
+  position: relative;
+  display: inline-block;
+}
+
+.slow-ping::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(59, 130, 246, 0.5); /* Adjust color as needed */
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: slow-ping 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes slow-ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ping-animation {
+  animation: slow-ping 4s infinite;
+}
+
+.box {
+  background-color: #f65e17;
+  --mask: linear-gradient(#000 0 0) 50% / calc(100% - 22.2px)
+      calc(100% - 22.2px) no-repeat,
+    radial-gradient(farthest-side, #000 98%, #0000) 0 0/24px 24px round;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.scrolling-container {
+  width: 100%;                  /* Full width */
+  overflow: hidden;             /* Hide any overflowing content */
+}
+
+.scrolling-text-wrapper {
+  display: flex;
+  animation: scroll-text 30s linear infinite;  /* Continuous scroll */
+  will-change: transform;         /* Improve performance during animation */
+}
+
+.scrolling-text-wrapper:hover {
+  animation-play-state: paused;  /* Pause animation on hover */
+}
+
+.scrolling-text {
+  white-space: nowrap;           /* Keep the text on a single line */
+  padding-right: 100%;           /* Ensure smooth scrolling without space between loops */
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(100%);  /* Start off-screen to the right */
+  }
+  100% {
+    transform: translateX(-100%); /* Move off-screen to the left */
+  }
+}
+
+.image-slider {
+  position: relative;
+  width: 80%;  /* Adjust based on your design */
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.image-slider-content {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-image-container {
+  width: 33.33%; /* Show 3 images at a time */
+}
+
+.slider-image {
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.arrow-left,
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 10;
+}
+
+.arrow-left {
+  left: 10px;
+}
+
+.arrow-right {
+  right: 10px;
+}
+
+button:disabled {
+  background: rgba(0, 0, 0, 0.3); /* Disabled button appearance */
+  cursor: not-allowed;
+}
+
+
+/* Striped background */
+.bg-stripes {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.3) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 20px 20px;
+  animation: move-stripes 1s linear infinite;
+}
+
+@keyframes move-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+
