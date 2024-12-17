@@ -70,7 +70,7 @@ const Section7 = () => {
               .map((product) => (
                 <div
                   key={product.id}
-                  className="border shadow flex flex-col group relative"
+                  className=" shadow flex flex-col group relative"
                 >
                   <div className="bg-gray-100 relative">
                     <img

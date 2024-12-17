@@ -20,19 +20,71 @@ const Navbar = () => {
   
   return (
     <div
-    className={`lg:px-0 px-2 container mx-auto transition-all fixed  lg:left-8  top-0 z-50 duration-700 ease-in-out `}
+    className={`lg:px-0  px-2 container mx-auto transition-all fixed md:left-20 lg:left-8  top-0 z-50 duration-700 ease-in-out `}
   >
    
   
       <div className="box mt-3 lg px-6 py-6 lg:py-0 flex justify-between items-center text-gray-800">
         {/* Left: Logo */}
-        <div className="flex items-center lg:space-x-4 ">
+        <div className="flex justify-center items-center lg:space-x-4 ">
         <Link to="/">
-        <img
-            src="/public/assets/kid-fashion-logo.png"
-            alt="Kid Fashion Logo"
-            className="hidden lg:block w-40"
-          /></Link>
+     
+        <div className="flex flex-col items-center -space-y-3 text-white">
+  {/* First Row */}
+  <div className="text-lg flex ">
+    {["A", "Z", "M", "A", "I", "N"].map((letter, index) => (
+      <span
+        key={index}
+        style={{
+          transform: `rotate(${index % 2 === 0 ? 5 : 14}deg)`,
+          display: "inline-block",
+        }}
+      >
+        {letter}
+      </span>
+    ))}
+  </div>
+
+  {/* Second Row */}
+  <div className="text-3xl font-bold flex ">
+    {[
+      { letter: "K", rotation: -14 },
+      { letter: "I", rotation: 0 },
+      { letter: "D", rotation: 14 },
+      { letter: "S", rotation: 10 },
+    ].map(({ letter, rotation }, index) => (
+      <span
+        key={index}
+        style={{
+          transform: `rotate(${rotation}deg)`,
+          display: "inline-block",
+        }}
+      >
+        {letter}
+      </span>
+    ))}
+  </div>
+
+  {/* Third Row */}
+  <div className="text-lg flex ">
+    {["M", "A", "R", "T"].map((letter, index) => (
+      <span
+        key={index}
+        style={{
+          transform: `rotate(${index % 2 === 0 ? 5 : 14}deg)`,
+          display: "inline-block",
+        }}
+      >
+        {letter}
+      </span>
+    ))}
+  </div>
+</div>
+
+
+          
+          
+          </Link>
           <div className="hidden lg:block w-[2px] h-16 "></div>
              {/* Hamburger Menu Icon */}
              <button onClick={toggleMenu}  className="block lg:hidden text-white">
@@ -112,9 +164,9 @@ const Navbar = () => {
           {/* Logo centered in mobile view */}
           <Link to="/">
         <img
-            src="/public/assets/kid-fashion-logo.png"
+            src="/assets/Logo.jpg"
             alt="Kid Fashion Logo"
-            className="w-32 md:w-40 "
+            className="w-14 md:w-20 "
           /></Link>
         </div>
 
@@ -164,9 +216,9 @@ const Navbar = () => {
       >
         <div className="flex justify-between items-center p-4 border-b border-white">
           <img
-            src="/public/assets/kid-fashion-logo.png"
+            src="/assets/Logo.jpg"
             alt="Kid Fashion Logo"
-            className="w-32"
+            className="w-20"
           />
           <button onClick={toggleMenu} className="text-white">
             <svg

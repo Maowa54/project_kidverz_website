@@ -3,7 +3,7 @@ import Progressbar from "../../component/Frontend/Singleproduct/Progressbar";
 import ImageSlider from "../../component/Frontend/Singleproduct/ImageSlider";
 import ProductInfo from "../../component/Frontend/Singleproduct/ProductInfo";
 import Footer from "../../component/Frontend/Footer";
-
+import { Link } from "react-router-dom";
 const SingleProduct = () => {
   const [selectedImage, setSelectedImage] = useState(
     "/assets/shopify-image-Recovered_deff5341-e76f-4831-ae3f-94cfb9cb51c3.png"
@@ -95,19 +95,19 @@ const SingleProduct = () => {
               </div>{" "}
               <div className="flex space-x-2">
                 {/* Comparison Icon */}
-                <div className="flex w-8 h-8 md:w-10 md:h-10  bg-gray-100  rounded-full justify-center items-center  transition duration-300">
+                <button className="flex w-8 h-8 md:w-10 md:h-10  bg-gray-100  rounded-full justify-center items-center  transition duration-300">
                   <i className="fa fa-exchange-alt"></i>
-                </div>
+                </button>
 
                 {/* Wishlist Icon */}
-                <div className="flex   w-8 h-8 md:w-10 md:h-10  bg-gray-100 rounded-full  justify-center items-center  transition duration-300">
+                <button className="flex   w-8 h-8 md:w-10 md:h-10  bg-gray-100 rounded-full  justify-center items-center  transition duration-300">
                   <i className="far fa-heart"></i>
-                </div>
+                </button>
 
                 {/* Cart Icon */}
-                <div className=" w-8 h-8 md:w-10 md:h-10 flex bg-gray-100  rounded-full justify-center items-center  transition duration-300">
-                  <i className="fa fa-shopping-cart"></i>
-                </div>
+                <button className=" w-8 h-8 md:w-10 md:h-10 flex bg-gray-100  rounded-full justify-center items-center  transition duration-300">
+                  <i className="fas fa-share-alt"></i>
+                </button>
               </div>
             </div>
 
@@ -194,11 +194,11 @@ const SingleProduct = () => {
                 </div>
 
                 {/* Buy Now Button */}
-                <div className="col-span-6 md:col-span-5">
+                <Link to="/checkout" className="col-span-6 md:col-span-5">
                   <button className="py-2  w-full md:text-lg bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-500">
                     Buy Now
                   </button>
-                </div>
+                </Link>
               </div>
             </div>
           </div>

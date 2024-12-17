@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import SingleProduct from "./pages/FrontendPages/SingleProduct";
 import ScrollToTopButton from "./component/Frontend/ScrollToTopButton";
+import Checkout from "./pages/FrontendPages/Checkout";
 // Scroll to top component to ensure page scrolls to top on route change
 const ScrollToTop = () => {
   const location = useLocation(); // Get current location (path)
@@ -29,6 +30,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/singleproduct" element={<SingleProduct />} />
+          <Route path="/checkout" element={<Checkout />} />
+
 
         </Routes>
 <ScrollToTopButton/>        

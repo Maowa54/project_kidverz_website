@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Section6 = () => {
   const products = [
@@ -92,7 +94,7 @@ const Section6 = () => {
 
       {/* Product Cards Section */}
       <div className="px-8 -mt-40">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Link to="/singleproduct" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products
             .slice(visibleProducts, visibleProducts + 4)
             .map((product) => (
@@ -177,7 +179,7 @@ const Section6 = () => {
                 </div>
               </div>
             ))}
-        </div>
+        </Link>
       </div>
     </div>
   );

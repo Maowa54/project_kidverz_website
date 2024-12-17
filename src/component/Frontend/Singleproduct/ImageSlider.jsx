@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Section6 = () => {
   const products = [
@@ -69,7 +71,7 @@ const Section6 = () => {
 
       {/* Product Cards Section */}
       <div className="mt-8 ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Link to="/singleproduct" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.slice(visibleProducts, visibleProducts + 4).map((product) => (
             <div key={product.id} className="border shadow flex flex-col group relative">
               <div className="bg-gray-100 relative">
@@ -137,7 +139,7 @@ const Section6 = () => {
               </div>
             </div>
           ))}
-        </div>
+        </Link>
       </div>
 
     
