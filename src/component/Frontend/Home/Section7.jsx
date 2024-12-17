@@ -30,7 +30,7 @@ const Section7 = () => {
     <div>
       <div className="bg-orange-100 font-semibold tracking-wider text-orange-500 text-lg my-8 p-4">
         <div className="scrolling-container">
-          <div className="scrolling-text-wrapper">
+          <div className="scrolling-text-wrapper reverse">
             <div className="scrolling-text">
               &bull; Welcome to KidVerz Where Imagination Meets Style! &bull;
               Explore Our Collection Crafted for Young Adventurers Blending
@@ -105,7 +105,7 @@ const Section7 = () => {
 
       <div className="bg-orange-100 font-semibold tracking-wider text-orange-500 text-lg mt-8 p-4">
         <div className="scrolling-container">
-          <div className="scrolling-text-wrapper">
+          <div className="scrolling-text-wrapper normal">
             <div className="scrolling-text">
               &bull; Welcome to KidVerz Where Imagination Meets Style! &bull;
               Explore Our Collection Crafted for Young Adventurers Blending

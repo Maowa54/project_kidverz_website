@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
-  const [isSticky, setIsSticky] = useState(false);
-  const [showHeader, setShowHeader] = useState(false);
 
   // Toggle the main menu
   const toggleMenu = () => {
@@ -17,77 +15,49 @@ const Navbar = () => {
     setActiveSubMenu(activeSubMenu === menu ? null : menu);
   };
 
-  
   return (
     <div
-    className={`lg:px-0  px-2 container mx-auto transition-all fixed md:left-20 lg:left-8  top-0 z-50 duration-700 ease-in-out `}
-  >
-   
-  
+      className={`lg:px-0  px-2 container mx-auto transition-all fixed md:left-20 lg:left-8  top-0 z-50 duration-700 ease-in-out `}
+    >
       <div className="box mt-3 lg px-6 py-6 lg:py-0 flex justify-between items-center text-gray-800">
         {/* Left: Logo */}
         <div className="flex justify-center items-center lg:space-x-4 ">
-        <Link to="/">
-     
-        <div className="flex flex-col items-center -space-y-3 text-white">
-  {/* First Row */}
-  <div className="text-lg flex ">
-    {["A", "Z", "M", "A", "I", "N"].map((letter, index) => (
-      <span
-        key={index}
-        style={{
-          transform: `rotate(${index % 2 === 0 ? 5 : 14}deg)`,
-          display: "inline-block",
-        }}
-      >
-        {letter}
-      </span>
-    ))}
-  </div>
+          <Link to="/">
+            <div className="hidden lg:flex flex-col font-neucha items-center px-3 -space-y-3 text-white">
+              {/* First Row */}
+              <div className="text-xl font-semibold flex rotate-[3deg] tracking-widest ">
+                <p>Azmain</p>
+              </div>
 
-  {/* Second Row */}
-  <div className="text-3xl font-bold flex ">
-    {[
-      { letter: "K", rotation: -14 },
-      { letter: "I", rotation: 0 },
-      { letter: "D", rotation: 14 },
-      { letter: "S", rotation: 10 },
-    ].map(({ letter, rotation }, index) => (
-      <span
-        key={index}
-        style={{
-          transform: `rotate(${rotation}deg)`,
-          display: "inline-block",
-        }}
-      >
-        {letter}
-      </span>
-    ))}
-  </div>
+              {/* Second Row */}
+              <div className="text-5xl tracking-tight  font-sans font-bold flex ">
+                {[
+                  { letter: "K", rotation: -25 },
+                  { letter: "i", rotation: 0 },
+                  { letter: "D", rotation: 10 },
+                  { letter: "S", rotation: 16 },
+                ].map(({ letter, rotation }, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      display: "inline-block",
+                    }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+              </div>
 
-  {/* Third Row */}
-  <div className="text-lg flex ">
-    {["M", "A", "R", "T"].map((letter, index) => (
-      <span
-        key={index}
-        style={{
-          transform: `rotate(${index % 2 === 0 ? 5 : 14}deg)`,
-          display: "inline-block",
-        }}
-      >
-        {letter}
-      </span>
-    ))}
-  </div>
-</div>
-
-
-          
-          
+              {/* Third Row */}
+              <div className="text-xl pt-1 font-semibold flex rotate-[4deg] tracking-widest ">
+                <p>Mart</p>
+              </div>
+            </div>
           </Link>
           <div className="hidden lg:block w-[2px] h-16 "></div>
-             {/* Hamburger Menu Icon */}
-             <button onClick={toggleMenu}  className="block lg:hidden text-white">
+          {/* Hamburger Menu Icon */}
+          <button onClick={toggleMenu} className="block lg:hidden text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -104,8 +74,8 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+        <div className="  hidden lg:block w-[2px] h-16 bg-white"></div>
 
-        
         {/* Center: Search Box and Navigation Items */}
         <div className="flex-1 hidden lg:flex flex-col py-3 px-8">
           {/* Search Box */}
@@ -163,14 +133,39 @@ const Navbar = () => {
         <div className="lg:hidden block">
           {/* Logo centered in mobile view */}
           <Link to="/">
-        <img
-            src="/assets/Logo.jpg"
-            alt="Kid Fashion Logo"
-            className="w-14 md:w-20 "
-          /></Link>
-        </div>
+            <div className="flex flex-col font-neucha items-center px-3 -space-y-3 text-white">
+              {/* First Row */}
+              <div className="text-xl font-semibold flex rotate-[3deg] tracking-widest ">
+                <p>Azmain</p>
+              </div>
 
-       
+              {/* Second Row */}
+              <div className="text-5xl tracking-tight  font-sans font-bold flex ">
+                {[
+                  { letter: "K", rotation: -25 },
+                  { letter: "i", rotation: 0 },
+                  { letter: "D", rotation: 10 },
+                  { letter: "S", rotation: 16 },
+                ].map(({ letter, rotation }, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      display: "inline-block",
+                    }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+              </div>
+
+              {/* Third Row */}
+              <div className="text-xl pt-1 font-semibold flex rotate-[4deg] tracking-widest ">
+                <p>Mart</p>
+              </div>
+            </div>
+          </Link>
+        </div>
 
         {/* Right: Icons */}
         <div className="flex items-center gap-4">
@@ -207,19 +202,14 @@ const Navbar = () => {
         </div>
       </div>
 
-
-        {/* Side Panel */}
-        <div
+      {/* Side Panel */}
+      <div
         className={`fixed z-50 top-0 left-0 w-64 md:w-80 h-full bg-orange-600 text-white transition-transform transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-4 border-b border-white">
-          <img
-            src="/assets/Logo.jpg"
-            alt="Kid Fashion Logo"
-            className="w-20"
-          />
+          <img src="/assets/Logo.jpg" alt="Kid Fashion Logo" className="w-20" />
           <button onClick={toggleMenu} className="text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -229,41 +219,42 @@ const Navbar = () => {
               stroke="currentColor"
               strokeWidth="2"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
 
         <div className="flex flex-col space-y-4 p-4">
-          {["Home", "Shop", "Collections", "Pages"].map((item, index) => (
+          {["Home", "Shop", "Collections", "Pages"].map((item) => (
             <div key={item}>
               <div
                 onClick={() => toggleSubMenu(item)}
                 className="flex justify-between items-center cursor-pointer text-lg tracking-wider font-semibold"
               >
                 <span>{item}</span>
-                {activeSubMenu === item ? (
-                 "-"
-                ) : (
-                 "+"
-                )}
+                {activeSubMenu === item ? "-" : "+"}
               </div>
 
               {/* Sub-menu */}
               {activeSubMenu === item && (
                 <div className="pl-6 space-y-2">
-                  <a href={`#${item.toLowerCase()}1`} className="block text-sm">Sub-item 1</a>
-                  <a href={`#${item.toLowerCase()}2`} className="block text-sm">Sub-item 2</a>
+                  <a href={`#${item.toLowerCase()}1`} className="block text-sm">
+                    Sub-item 1
+                  </a>
+                  <a href={`#${item.toLowerCase()}2`} className="block text-sm">
+                    Sub-item 2
+                  </a>
                 </div>
               )}
             </div>
           ))}
-          </div>
-          </div>
-
+        </div>
+      </div>
     </div>
-
-    
   );
 };
 

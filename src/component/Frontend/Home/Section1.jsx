@@ -65,27 +65,70 @@ const Section1 = () => {
         {/* First row */}
         <div className="flex w-full justify-between p-8 space-x-6">
           {/* First Div */}
-          <div className="mt-[100px] me-4 bg-gradient-to-l from-yellow-300 to-[rgb(255,213,63)] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden relative">
+          <div
+            ref={(el) => (buttonRefs.current["1"] = el)}
+            onClick={() => handleClick("1")}
+            className="mt-[100px] me-4 bg-gradient-to-l from-yellow-300 to-[rgb(255,213,63)] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden relative"
+          >
             {/* Plus Sign */}
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-6 right-4 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-6 right-4 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
 
             {/* Image */}
             <img
               src="/assets/248-2485262_kids-girl-kids-wear-png.png"
               alt=""
-              className="w-[100px] object-contain skew-x-12"
+              className="w-[100px]  object-cover  skew-x-12"
             />
           </div>
+          {/* Display Text for Second Div */}
+          {showText["1"] && (
+            <div
+              ref={(el) => (textRefs.current["1"] = el)}
+              className="absolute top-52 left-20 z-30 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("1")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Pink Dress
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $22
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
 
           {/* Second Div */}
           <div className="relative bg-gradient-to-b from-[#c1ecb5] to-[#aef19b] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
             <div
-              ref={(el) => (buttonRefs.current["1"] = el)}
-              onClick={() => handleClick("1")}
+              ref={(el) => (buttonRefs.current["2"] = el)}
+              onClick={() => handleClick("2")}
               className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-8 right-6 flex items-center justify-center"
             >
               <button className="relative text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
@@ -96,13 +139,13 @@ const Section1 = () => {
             <img
               src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM-removebg-preview.png"
               alt=""
-              className="w-[220px] object-contain skew-x-12"
+              className="w-[220px] object-cover skew-x-12"
             />
           </div>
           {/* Display Text for Second Div */}
-          {showText["1"] && (
+          {showText["2"] && (
             <div
-              ref={(el) => (textRefs.current["1"] = el)}
+              ref={(el) => (textRefs.current["2"] = el)}
               className="absolute top-32 left-[500px] z-30 w-52 bg-gray-50 p-3 rounded"
             >
               <div className="flex justify-between">
@@ -110,7 +153,7 @@ const Section1 = () => {
                 <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
                   <i
                     className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("1")}
+                    onClick={() => handleClose("2")}
                   ></i>
                 </div>
               </div>
@@ -142,9 +185,9 @@ const Section1 = () => {
           {/* Third Div */}
           <div className="relative bg-gradient-to-b from-[#eeafde] to-[#f599f5] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
             <div
-              ref={(el) => (buttonRefs.current["2"] = el)}
-              onClick={() => handleClick("2")}
-              className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-16 right-6 flex items-center justify-center"
+              ref={(el) => (buttonRefs.current["3"] = el)}
+              onClick={() => handleClick("3")}
+              className="skew-x-6 absolute  p-1 animate-ping-border z-50 rounded-full  top-16 right-6 flex items-center justify-center"
             >
               <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
@@ -153,13 +196,13 @@ const Section1 = () => {
             <img
               src="/assets/WhatsApp_Image_2024-12-10_at_2.10.08_PM-removebg-preview.png"
               alt=""
-              className="w-[500px] object-contain skew-x-12"
+              className="w-[500px] object-cover skew-x-12"
             />
           </div>
           {/* Display Text for Second Div */}
-          {showText["2"] && (
+          {showText["3"] && (
             <div
-              ref={(el) => (textRefs.current["2"] = el)}
+              ref={(el) => (textRefs.current["3"] = el)}
               className="absolute top-40 right-48 z-30 w-52 bg-gray-50 p-3 rounded"
             >
               <div className="flex justify-between">
@@ -167,7 +210,7 @@ const Section1 = () => {
                 <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
                   <i
                     className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("2")}
+                    onClick={() => handleClose("3")}
                   ></i>
                 </div>
               </div>
@@ -197,11 +240,13 @@ const Section1 = () => {
           )}
 
           {/* Last Div */}
-          <div className="relative mt-[100px] bg-gradient-to-b from-[#fffd6f] to-[#f3ff50] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end overflow-hidden">
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-8 right-2 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+          <div
+              ref={(el) => (buttonRefs.current["4"] = el)}
+              onClick={() => handleClick("4")} className="relative mt-[100px] bg-gradient-to-b from-[#fffd6f] to-[#f3ff50] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end overflow-hidden">
+            <div className="skew-x-6 z-50 absolute  p-1 animate-ping-border  rounded-full  top-8 right-2 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
             <img
               src="/assets/png-transparent-girl-cute-little-girl-child-fashion-girl-hat-thumbnail-removebg-preview.png"
@@ -209,66 +254,279 @@ const Section1 = () => {
               className="w-[180px] object-contain"
             />
           </div>
+
+            {/* Display Text for Second Div */}
+            {showText["4"] && (
+            <div
+              ref={(el) => (textRefs.current["4"] = el)}
+              className="absolute top-56 right-0 z-30 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("4")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Pink Dress
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $22
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* second row */}
         <div className="flex w-full justify-between px-8 space-x-6">
           {/* First Div */}
-          <div className="relative bg-gradient-to-r from-sky-200 to-sky-300 w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden">
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+          <div
+            ref={(el) => (buttonRefs.current["5"] = el)}
+            onClick={() => handleClick("5")}
+            className="relative bg-gradient-to-r from-sky-200 to-sky-300 w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden"
+          >
+            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
             <img
-              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__1_-removebg-preview.png"
+              src="/assets/pngtree-a-baby-girl-in-beautiful-pink-dress-with-face-png-image_11674562-removebg-preview.png"
               alt=""
-              className="w-[200px] object-contain skew-x-12"
+              className="w-[180px] object-cover skew-x-12"
             />
           </div>
+          {/* Display Text for Second Div */}
+          {showText["5"] && (
+            <div
+              ref={(el) => (textRefs.current["5"] = el)}
+              className="absolute bottom-28 left-12 z-30 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("5")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Baby Dress
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $15
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
 
           {/* Second Div */}
-          <div className="relative bg-pink-300 w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-16 right-6 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+          <div
+            ref={(el) => (buttonRefs.current["6"] = el)}
+            onClick={() => handleClick("6")}
+            className="relative bg-pink-300 w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden"
+          >
+            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-16 right-6 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
 
             <img
               src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__2_-removebg-preview.png"
               alt=""
-              className="w-[300px] object-contain skew-x-12"
+              className="w-[300px] object-cover skew-x-12"
             />
           </div>
+          {/* Display Text for Second Div */}
+          {showText["6"] && (
+            <div
+              ref={(el) => (textRefs.current["6"] = el)}
+              className="absolute bottom-20 left-[500px] z-30 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("6")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Punjabi
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $10
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
 
           {/* Third Div */}
-          <div className="relative bg-gradient-to-r  from-[#aaccec] to-[#85b0d8] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-16 right-6 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+          <div
+            ref={(el) => (buttonRefs.current["7"] = el)}
+            onClick={() => handleClick("7")}
+            className="relative bg-gradient-to-r  from-[#aaccec] to-[#85b0d8] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden"
+          >
+            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-6 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
             <img
-              src="/assets/pngtree-a-baby-girl-in-beautiful-pink-dress-with-face-png-image_11674562-removebg-preview.png"
+              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__1_-removebg-preview.png"
               alt=""
-              className="w-[270px] object-contain skew-x-12"
+              className="w-[270px] object-cover skew-x-12"
             />
           </div>
+          {/* Display Text for Second Div */}
+          {showText["7"] && (
+            <div
+              ref={(el) => (textRefs.current["7"] = el)}
+              className="absolute bottom-24 right-44 z-30 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("7")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Punjabi
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $10
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
 
           {/* Last Div */}
-          <div className="relative bg-gradient-to-r from-[#ffabae]  to-[#fa737a] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden">
-            <div className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
-              <div className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+          <div
+            ref={(el) => (buttonRefs.current["8"] = el)}
+            onClick={() => handleClick("8")}
+            className="relative bg-gradient-to-r from-[#ffabae]  to-[#fa737a] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden"
+          >
+            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
+              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
                 +
-              </div>
+              </button>
             </div>
             <img
               src="/assets/pngtree-little-suits-traditional-tuxedo-dresses-for-baby-boys-png-image_13305026-removebg-preview.png"
               alt=""
-              className="w-[300px] object-contain skew-x-12"
+              className="w-[300px] object-cover skew-x-12"
             />
           </div>
+
+          {/* Display Text for Second Div */}
+          {showText["8"] && (
+            <div
+              ref={(el) => (textRefs.current["8"] = el)}
+              className="absolute bottom-24 right-4 w-52 bg-gray-50 p-3 rounded"
+            >
+              <div className="flex justify-between">
+                <p className="text-gray-600 md:text-lg">kidverz</p>
+                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
+                  <i
+                    className="fas fa-close cursor-pointer "
+                    onClick={() => handleClose("8")}
+                  ></i>
+                </div>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                Black Suit
+              </p>
+              <div className="flex">
+                <div className="flex mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-yellow-500 text-xs"
+                    ></i>
+                  ))}
+                </div>
+                <p className="text-gray-800 ms-1 mt-1">(5)</p>
+              </div>
+              <p className="font-semibold text-lg md:text-xl text-gray-800">
+                $20
+              </p>
+              <Link to="/singleproduct">
+                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                  Select Options
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

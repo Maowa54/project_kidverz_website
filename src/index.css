@@ -143,17 +143,24 @@ body {
 
 .scrolling-text-wrapper {
   display: flex;
+  will-change: transform;       /* Improve performance during animation */
+}
+
+.scrolling-text-wrapper.normal {
   animation: scroll-text 30s linear infinite;  /* Continuous scroll */
-  will-change: transform;         /* Improve performance during animation */
+}
+
+.scrolling-text-wrapper.reverse {
+  animation: scroll-text-reverse 30s linear infinite;  /* Reverse scroll */
 }
 
 .scrolling-text-wrapper:hover {
-  animation-play-state: paused;  /* Pause animation on hover */
+  animation-play-state: paused; /* Pause animation on hover */
 }
 
 .scrolling-text {
-  white-space: nowrap;           /* Keep the text on a single line */
-  padding-right: 100%;           /* Ensure smooth scrolling without space between loops */
+  white-space: nowrap;          /* Keep the text on a single line */
+  padding-right: 100%;          /* Ensure smooth scrolling without space between loops */
 }
 
 @keyframes scroll-text {
@@ -164,6 +171,16 @@ body {
     transform: translateX(-100%); /* Move off-screen to the left */
   }
 }
+
+@keyframes scroll-text-reverse {
+  0% {
+    transform: translateX(-100%); /* Start off-screen to the left */
+  }
+  100% {
+    transform: translateX(100%);  /* Move off-screen to the right */
+  }
+}
+
 
 .image-slider {
   position: relative;
