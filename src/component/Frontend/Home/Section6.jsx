@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 
 const Section6 = () => {
   const products = [
@@ -49,54 +48,101 @@ const Section6 = () => {
     // Add more products as needed
   ];
 
-  const [visibleProducts, setVisibleProducts] = useState(0);
+  const [visibleProducts, setVisibleProducts] = useState(0); // Starting index of visible products
+  const [productsToShow, setProductsToShow] = useState(4); // Number of products to show
 
-  // Function to move to the next set of cards
-  const handleNext = () => {
-    if (visibleProducts + 1 < products.length - 3) {
-      setVisibleProducts(visibleProducts + 1); // Shift by 1
+  // Adjust the number of products to show based on screen size
+  const updateProductsToShow = () => {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth >= 1024) {
+      setProductsToShow(4); // Large screens (lg)
+    } else if (screenWidth >= 768) {
+      setProductsToShow(2); // Medium screens (md)
+    } else {
+      setProductsToShow(1); // Small screens (sm)
     }
   };
 
-  // Function to move to the previous set of cards
+  // Run on mount and screen resize
+  useEffect(() => {
+    updateProductsToShow(); // Set initial value
+    window.addEventListener("resize", updateProductsToShow);
+
+    return () => {
+      window.removeEventListener("resize", updateProductsToShow);
+    };
+  }, []);
+
+  // Handle next button
+  const handleNext = () => {
+    if (visibleProducts + 1 < products.length - productsToShow + 1) {
+      setVisibleProducts(visibleProducts + 1);
+    }
+  };
+
+  // Handle previous button
   const handlePrev = () => {
     if (visibleProducts - 1 >= 0) {
-      setVisibleProducts(visibleProducts - 1); // Shift by 1
+      setVisibleProducts(visibleProducts - 1);
     }
   };
 
   return (
     <div>
       {/* Blue Section */}
-      <div className="bg-[#41C1CA] py-16 mt-8 relative">
+      <div className="bg-[#41C1CA] py-4 md:py-16 mt-2 md:mt-8 relative">
         <div className="px-8 h-48">
-          <h1 className="text-white text-3xl md:text-5xl font-semibold tracking-wider">
+          <h1 className="text-white text-nowrap text-3xl md:text-5xl font-semibold tracking-wider">
             Trending Products
           </h1>
         </div>
 
         {/* Navigation Arrows */}
-        <div className="absolute top-16 right-8 flex gap-4">
+        <div className="absolute z-10 top-16 right-8 hidden md:flex gap-4 ">
           <button
             onClick={handlePrev}
-            className="w-16 h-16 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
+            className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
           >
             <i className="fas fa-arrow-left md:text-lg  group-hover:text-white text-gray-800"></i>
           </button>
           <button
             onClick={handleNext}
-            className="w-16 h-16 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
+            className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
           >
             <i className="fas fa-arrow-right md:text-lg group-hover:text-white text-gray-800"></i>
           </button>
         </div>
+
+        <div className="md:hidden block">
+          {/* Navigation Arrows */}
+          <div className="absolute top-60 z-10 left-2 ">
+            <button
+              onClick={handlePrev}
+              className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
+            >
+              <i className="fas fa-arrow-left md:text-lg group-hover:text-white text-gray-800"></i>
+            </button>
+          </div>
+          <div className="absolute top-60 z-10 right-2 ">
+            <button
+              onClick={handleNext}
+              className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#F65E17] transition duration-1000"
+            >
+              <i className="fas fa-arrow-right md:text-lg group-hover:text-white text-gray-800"></i>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Product Cards Section */}
-      <div className="px-8 -mt-40">
-        <Link to="/singleproduct" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="px-8 -mt-36 md:-mt-40">
+        <Link
+          to="/singleproduct"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {products
-            .slice(visibleProducts, visibleProducts + 4)
+            .slice(visibleProducts, visibleProducts + productsToShow)
             .map((product) => (
               <div
                 key={product.id}
@@ -129,25 +175,25 @@ const Section6 = () => {
                   <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
                     {/* Cart Icon */}
                     <div className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
+                      <div className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
                         <i className="fa fa-shopping-cart text-white"></i>
                       </div>
                     </div>
                     {/* Wishlist Icon */}
                     <div className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
+                      <div className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
                         <i className="far fa-heart text-white"></i>
                       </div>
                     </div>
                     {/* View Icon */}
                     <div className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
+                      <div className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
                         <i className="far fa-eye text-white"></i>
                       </div>
                     </div>
                     {/* Comparison Icon */}
                     <div className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
+                      <div className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
                         <i className="fa fa-exchange-alt text-white"></i>
                       </div>
                     </div>
@@ -167,7 +213,7 @@ const Section6 = () => {
                       (color) => (
                         <button
                           key={color}
-                          className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
+                          className="rounded-full size-4 md:size-6 border-2 border-gray-400 flex justify-center items-center"
                         >
                           <div
                             className={`bg-${color}-500 rounded-full w-4 h-4`}

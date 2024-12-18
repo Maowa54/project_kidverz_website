@@ -180,16 +180,16 @@ const Section3 = () => {
 
         <div className="absolute hidden lg:block bottom-0 left-8  ">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/product-tab-bubble-01.png?v=1697103126&width=200"
+            src="/public/assets/Cute-Baby-Onesie-Clipart-75866179-1.png"
             alt=""
-            className="ping-animation"
+            className="ping-animation w-24"
           />
         </div>
         <div className="absolute top-0 right-8 hidden lg:block">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/product-tab-bubble-02.png?v=1697103125&width=200"
+            src="/public/assets/frock.png"
             alt=""
-            className="slow-bounce"
+            className="ping-animation w-16"
           />
         </div>
       </div>
@@ -284,7 +284,10 @@ const Section3 = () => {
       </div>
 
       {activeSection === "bestSelling" && (
-        <Link to="/singleproduct" className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link
+          to="/singleproduct"
+          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
           {products.map((product) => (
             <div
               key={product.id}
@@ -349,7 +352,10 @@ const Section3 = () => {
         </Link>
       )}
       {activeSection === "children" && (
-        <Link to="/singleproduct" className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link
+          to="/singleproduct"
+          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
           {products1.map((product) => (
             <div
               key={product.id}
@@ -415,7 +421,10 @@ const Section3 = () => {
       )}
 
       {activeSection === "floralDress" && (
-        <Link to="/singleproduct" className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link
+          to="/singleproduct"
+          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
           {products2.map((product) => (
             <div
               key={product.id}
@@ -480,7 +489,10 @@ const Section3 = () => {
         </Link>
       )}
       {activeSection === "winterWear" && (
-        <Link to="/singleproduct" className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link
+          to="/singleproduct"
+          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
           {products3.map((product) => (
             <div
               key={product.id}

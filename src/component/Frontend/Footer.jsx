@@ -24,7 +24,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
         {/* Logo and Social Links */}
         <div className="flex flex-col ">
-          <img src="/assets/logo.png" alt="Logo" className="w-52" />
+          <img src="/assets/Logo-removebg-preview.png" alt="Logo" className="w-20 md:w-32" />
           <p className="text-gray-600 mt-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.

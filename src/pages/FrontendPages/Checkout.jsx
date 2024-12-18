@@ -2,14 +2,15 @@ import Footer from "../../component/Frontend/Footer";
 
 const Checkout = () => {
   return (
-    <div className="pt-36 overflow-hidden">
+    <div className=" overflow-hidden">
       <div className="px-4 lg:px-0 container mx-auto">
         {/* Grid Layout */}
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {/* Left Column - 8 columns wide */}
-          <div className="col-span-12 border lg:col-span-7">
-            <div className="bg-[#F65E17]  border-white ">
-              <h1 className="font-semibold text-xl md:text-2xl p-4 tracking-wide text-white animate-pulse">
+          <div className="">
+            <div className="bg-[#F65E17] rounded-t border-white ">
+              <h1 className="font-semibold text-xl md:text-2xl p-4 tracking-wide text-white ">
+               <span><i className="fas fa-shopping-cart me-2"></i></span>
                 Your Shopping
               </h1>
             </div>
@@ -69,7 +70,7 @@ const Checkout = () => {
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-5 border bg-orange-50 py-4 px-6 shadow-md rounded-lg">
+          <div className=" border bg-orange-50 py-4 px-6 shadow-md rounded">
             {/* Title */}
             <h2 className="text-2xl font-semibold mb-4 text-orange-700">
               Order Details
@@ -177,16 +178,15 @@ const Checkout = () => {
                 <textarea
                   id="orderNote"
                   rows="3"
-                  placeholder="Enter "
+                  placeholder="Enter Your Note (if any)"
                   className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-orange-400"
                 ></textarea>
               </div>
               {/* Order Summary Section */}
               <div className="mt-6 border-t pt-4">
-                <h3 className="font-semibold text-lg text-gray-800 mb-4">
-                  <i className="fas fa-file-invoice-dollar text-orange-500 mr-2"></i>
-                  Order Summary
-                </h3>
+              <h2 className="text-2xl font-semibold mb-4 text-orange-700">
+              Order Summary
+            </h2>
 
                 {/* Subtotal */}
                 <div className="flex justify-between items-center mb-2">

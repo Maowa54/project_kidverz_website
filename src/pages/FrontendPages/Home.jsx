@@ -8,7 +8,7 @@ import Section7 from "../../component/Frontend/Home/Section7";
 
 const Home = () => {
   return (
-    <div className="overflow-hidden pt-28">
+    <div className="overflow-hidden ">
       {/* First Section */}
       <Section1 />
 

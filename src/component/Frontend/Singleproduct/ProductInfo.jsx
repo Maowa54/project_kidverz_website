@@ -5,7 +5,7 @@ const ProductInfo = () => {
 
   const sections = {
     description: (
-      <div className="my-4 grid grid-cols-12 px-4 md:px-0">
+      <div className="my-4 grid grid-cols-12 px-4 md:px-2">
         <div className="col-span-12 md:col-span-4">
           <h1 className="text-xl md:text-3xl font-semibold text-gray-800 tracking-wide mb-2 hidden md:block">
             Product Description
@@ -100,7 +100,7 @@ const ProductInfo = () => {
   return (
     <div>
       <div>
-        <h1 className="text-2xl md:text-4xl mt-8 py-4 md:py-8 px-4 md:px-0 font-semibold text-gray-800 tracking-wide">
+        <h1 className="text-2xl md:text-4xl mt-8 py-4 md:py-8 px-4 md:px-2 font-semibold text-gray-800 tracking-wide">
          Description
         </h1>
         <hr className="border-black" />

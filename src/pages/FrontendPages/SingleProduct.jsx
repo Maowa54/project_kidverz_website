@@ -27,7 +27,7 @@ const SingleProduct = () => {
   const decrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
   return (
     <div className="overflow-hidden">
-      <div className="container pt-20 md:pt-28 mx-auto">
+      <div className="container  mx-auto">
         <div className="bg-white mt-4 p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left Section */}
           <div className="">
@@ -208,7 +208,7 @@ const SingleProduct = () => {
           <ProductInfo />
         </div>
 
-        <div className="my-8">
+        <div className="my-8 px-4 md:px-2">
           <h1 className="font-semibold text-2xl text-gray-800 md:text-4xl ">
             You May Also Like
           </h1>

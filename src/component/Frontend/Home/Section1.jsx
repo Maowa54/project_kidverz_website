@@ -7,16 +7,16 @@ const Section1 = () => {
   const buttonRefs = useRef({}); // To keep track of multiple button divs
 
   const handleClick = (id) => {
-    setShowText((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id], // Toggle visibility based on the id
+    setShowText((prev) => ({
+      ...prev,
+      [id]: !prev[id], // Toggle visibility for the clicked product
     }));
   };
 
   const handleClose = (id) => {
-    setShowText((prevState) => ({
-      ...prevState,
-      [id]: false, // Close the text div based on the id
+    setShowText((prev) => ({
+      ...prev,
+      [id]: false, // Hide the text for the specified product
     }));
   };
 
@@ -43,490 +43,281 @@ const Section1 = () => {
     };
   }, []);
 
+  console.log(showText);
+  const productData = [
+    {
+      id: "1",
+      bgGradient: "bg-gradient-to-l from-yellow-300 to-[rgb(255,213,63)]",
+      width: "w-[20%]",
+      height: "h-[250px]",
+      imageSrc: "/assets/248-2485262_kids-girl-kids-wear-png.png",
+      imageWidth: "w-[100px]",
+      textPosition: "absolute top-20 left-20",
+      title: "Pink Dress",
+      price: "$22",
+      marginTop: "mt-[100px]",
+      marginRight: "mr-[16px]",
+    },
+    {
+      id: "2",
+      bgGradient: "bg-gradient-to-b from-[#c1ecb5] to-[#aef19b]",
+      width: "w-[30%]",
+      height: "h-[350px]",
+      imageSrc:
+        "/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM-removebg-preview.png",
+      imageWidth: "w-[220px]",
+      textPosition: "absolute top-20 left-48",
+      title: "Shirt",
+      price: "$10",
+    },
+    {
+      id: "3",
+      bgGradient: "bg-gradient-to-b from-[#eeafde] to-[#f599f5]",
+      width: "w-[30%]",
+      height: "h-[350px]",
+      imageSrc:
+        "/assets/WhatsApp_Image_2024-12-10_at_2.10.08_PM-removebg-preview.png",
+      imageWidth: "w-[500px]",
+      textPosition: "absolute top-20 -right-14",
+      title: "Suit",
+      price: "$30",
+    },
+    {
+      id: "4",
+      bgGradient: "bg-gradient-to-b from-[#fffd6f] to-[#f3ff50]",
+      width: "w-[20%]",
+      height: "h-[250px]",
+      imageSrc:
+        "/assets/png-transparent-girl-cute-little-girl-child-fashion-girl-hat-thumbnail-removebg-preview.png",
+      imageWidth: "w-[180px]",
+      textPosition: "absolute top-20 -right-16",
+      title: "Yellow Dress",
+      price: "$22",
+      marginTop: "mt-[100px]",
+    },
+    {
+      id: "5",
+      bgGradient: "bg-gradient-to-r from-sky-200 to-sky-300",
+      width: "w-[20%]",
+      height: "h-[250px]",
+      imageSrc:
+        "/assets/pngtree-a-baby-girl-in-beautiful-pink-dress-with-face-png-image_11674562-removebg-preview.png",
+      imageWidth: "w-[180px]",
+      textPosition:
+        "absolute -bottom-4 left-20 z-20 w-52 bg-gray-50 p-3 rounded",
+      title: "Baby Dress",
+      price: "$15",
+    },
+    {
+      id: "6",
+      bgGradient: "bg-pink-300",
+      width: "w-[30%]",
+      height: "h-[350px]",
+      imageSrc:
+        "/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__2_-removebg-preview.png",
+      imageWidth: "w-[300px]",
+      textPosition:
+        "absolute bottom-20 left-56 z-50 w-52 bg-gray-50 p-3 rounded",
+      title: "Punjabi",
+      price: "$10",
+
+    },
+    {
+      id: "7",
+      bgGradient: "bg-gradient-to-r from-[#aaccec] to-[#85b0d8]",
+      width: "w-[30%]",
+      height: "h-[350px]",
+      imageSrc:
+        "/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__1_-removebg-preview.png",
+      imageWidth: "w-[270px]",
+      textPosition:
+        "absolute bottom-20 -right-14 z-50 w-52 bg-gray-50 p-3 rounded",
+      title: "Punjabi",
+      price: "$10",
+    },
+    {
+      id: "8",
+      bgGradient: "bg-gradient-to-r from-[#ffabae] to-[#fa737a]",
+      width: "w-[20%]",
+      height: "h-[250px]",
+      imageSrc:
+        "/assets/pngtree-little-suits-traditional-tuxedo-dresses-for-baby-boys-png-image_13305026-removebg-preview.png",
+      imageWidth: "w-[300px]",
+      textPosition: "absolute -bottom-4 -right-14 w-52 bg-gray-50 p-3 rounded",
+      title: "Black Suit",
+      price: "$20",
+    },
+  ];
+
   return (
     <div>
       <div className="container mx-auto my-6 py-4 relative">
-        <div className="absolute top-6 left-20">
-          <img src="/assets/cloud.png" alt="" className="w-52 slow-bounce" />
-        </div>
-
-        <div className="absolute top-10 right-10">
-          <img src="/assets/stars.jpg" alt="" className="w-36 slow-bounce" />
-        </div>
-
-        <div className="absolute bottom-0 right-10">
+        <div className="absolute top-6 left-28 hidden md:block">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/banner-bubble-04.png?v=1697103125&width=170"
+            src="/assets/cute-baby-cartoon-sleeping-moon-illustration-39807185.png"
             alt=""
-            className="w-36 ping-animation"
+            className="w-24 slow-bounce"
           />
         </div>
 
-        {/* First row */}
-        <div className="flex w-full justify-between p-8 space-x-6">
-          {/* First Div */}
-          <div
-            ref={(el) => (buttonRefs.current["1"] = el)}
-            onClick={() => handleClick("1")}
-            className="mt-[100px] me-4 bg-gradient-to-l from-yellow-300 to-[rgb(255,213,63)] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden relative"
-          >
-            {/* Plus Sign */}
-            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-6 right-4 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-
-            {/* Image */}
-            <img
-              src="/assets/248-2485262_kids-girl-kids-wear-png.png"
-              alt=""
-              className="w-[100px]  object-cover  skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["1"] && (
-            <div
-              ref={(el) => (textRefs.current["1"] = el)}
-              className="absolute top-52 left-20 z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("1")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Pink Dress
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $22
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
-
-          {/* Second Div */}
-          <div className="relative bg-gradient-to-b from-[#c1ecb5] to-[#aef19b] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
-            <div
-              ref={(el) => (buttonRefs.current["2"] = el)}
-              onClick={() => handleClick("2")}
-              className="skew-x-6 absolute  p-1 animate-ping-border  rounded-full  top-8 right-6 flex items-center justify-center"
-            >
-              <button className="relative text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-
-            <img
-              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM-removebg-preview.png"
-              alt=""
-              className="w-[220px] object-cover skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["2"] && (
-            <div
-              ref={(el) => (textRefs.current["2"] = el)}
-              className="absolute top-32 left-[500px] z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("2")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Shirt
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $10
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
-
-          {/* Third Div */}
-          <div className="relative bg-gradient-to-b from-[#eeafde] to-[#f599f5] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden">
-            <div
-              ref={(el) => (buttonRefs.current["3"] = el)}
-              onClick={() => handleClick("3")}
-              className="skew-x-6 absolute  p-1 animate-ping-border z-50 rounded-full  top-16 right-6 flex items-center justify-center"
-            >
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-            <img
-              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.08_PM-removebg-preview.png"
-              alt=""
-              className="w-[500px] object-cover skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["3"] && (
-            <div
-              ref={(el) => (textRefs.current["3"] = el)}
-              className="absolute top-40 right-48 z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("3")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Suit
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $30
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
-
-          {/* Last Div */}
-          <div
-              ref={(el) => (buttonRefs.current["4"] = el)}
-              onClick={() => handleClick("4")} className="relative mt-[100px] bg-gradient-to-b from-[#fffd6f] to-[#f3ff50] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end overflow-hidden">
-            <div className="skew-x-6 z-50 absolute  p-1 animate-ping-border  rounded-full  top-8 right-2 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-            <img
-              src="/assets/png-transparent-girl-cute-little-girl-child-fashion-girl-hat-thumbnail-removebg-preview.png"
-              alt=""
-              className="w-[180px] object-contain"
-            />
-          </div>
-
-            {/* Display Text for Second Div */}
-            {showText["4"] && (
-            <div
-              ref={(el) => (textRefs.current["4"] = el)}
-              className="absolute top-56 right-0 z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("4")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Pink Dress
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $22
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
+        <div className="absolute top-8 right-10 hidden md:block">
+          <img
+            src="/public/assets/cartoon-baby-star-vector-illustration_444196-1129.png"
+            alt=""
+            className="w-28 slow-bounce"
+          />
         </div>
 
-        {/* second row */}
-        <div className="flex w-full justify-between px-8 space-x-6">
-          {/* First Div */}
-          <div
-            ref={(el) => (buttonRefs.current["5"] = el)}
-            onClick={() => handleClick("5")}
-            className="relative bg-gradient-to-r from-sky-200 to-sky-300 w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden"
-          >
-            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-            <img
-              src="/assets/pngtree-a-baby-girl-in-beautiful-pink-dress-with-face-png-image_11674562-removebg-preview.png"
-              alt=""
-              className="w-[180px] object-cover skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["5"] && (
-            <div
-              ref={(el) => (textRefs.current["5"] = el)}
-              className="absolute bottom-28 left-12 z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("5")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Baby Dress
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $15
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
+        <div className="absolute bottom-0 right-10 hidden md:block">
+          <img
+            src="/assets/cute-flower-cartoon-vector-illustration2_877459-322.png"
+            alt=""
+            className="w-20 ping-animation"
+          />
+        </div>
 
-          {/* Second Div */}
-          <div
-            ref={(el) => (buttonRefs.current["6"] = el)}
-            onClick={() => handleClick("6")}
-            className="relative bg-pink-300 w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden"
-          >
-            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-16 right-6 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
+        <div className="p-8">
+          {/* First Row */}
+          <div className="flex w-full justify-between space-x-6">
+            {productData.slice(0, 4).map((product) => (
+              <div
+                key={product.id}
+                ref={(el) => (buttonRefs.current[product.id] = el)}
+                className={`relative ${product.bgGradient} ${product.width} ${product.marginRight} ${product.marginTop} ${product.height} -skew-x-12 flex justify-center items-end `}
+              >
+                {/* Plus Sign */}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the click event from propagating to the parent div
+                    handleClick(product.id); // Toggle the text
+                  }}
+                  className="skew-x-6 absolute z-20 p-1 animate-ping-border rounded-full top-8 right-6 flex items-center justify-center"
+                >
+                  <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+                    +
+                  </button>
+                </div>
 
-            <img
-              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__2_-removebg-preview.png"
-              alt=""
-              className="w-[300px] object-cover skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["6"] && (
-            <div
-              ref={(el) => (textRefs.current["6"] = el)}
-              className="absolute bottom-20 left-[500px] z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("6")}
-                  ></i>
-                </div>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Punjabi
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $10
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
+                {/* Image */}
+                <img
+                  src={product.imageSrc}
+                  alt=""
+                  className={`${product.imageWidth} object-cover skew-x-12`}
+                />
 
-          {/* Third Div */}
-          <div
-            ref={(el) => (buttonRefs.current["7"] = el)}
-            onClick={() => handleClick("7")}
-            className="relative bg-gradient-to-r  from-[#aaccec] to-[#85b0d8] w-[30%] h-[350px] -skew-x-12 flex justify-center items-center  overflow-hidden"
-          >
-            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-6 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-            <img
-              src="/assets/WhatsApp_Image_2024-12-10_at_2.10.09_PM__1_-removebg-preview.png"
-              alt=""
-              className="w-[270px] object-cover skew-x-12"
-            />
-          </div>
-          {/* Display Text for Second Div */}
-          {showText["7"] && (
-            <div
-              ref={(el) => (textRefs.current["7"] = el)}
-              className="absolute bottom-24 right-44 z-30 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("7")}
-                  ></i>
-                </div>
+                {/* Display Text */}
+                {showText[product.id] && (
+                  <div
+                    ref={(el) => (textRefs.current[product.id] = el)}
+                    className={`${product.textPosition} skew-x-12 z-50 w-52 bg-gray-50 p-3 rounded`}
+                  >
+                    <div className="flex justify-between">
+                      <p className="text-gray-600 md:text-lg">kidverz</p>
+                      <div className="bg-gray-300 rounded-full size-8 flex justify-center items-center">
+                        <i
+                          className="fas fa-close cursor-pointer"
+                          onClick={() => handleClose(product.id)}
+                        ></i>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-lg md:text-xl text-gray-800">
+                      {product.title}
+                    </p>
+                    <div className="flex">
+                      <div className="flex mt-2">
+                        {[...Array(5)].map((_, i) => (
+                          <i
+                            key={i}
+                            className="fas fa-star text-yellow-500 text-xs"
+                          ></i>
+                        ))}
+                      </div>
+                      <p className="text-gray-800 ms-1 mt-1">(5)</p>
+                    </div>
+                    <p className="font-semibold text-lg md:text-xl text-gray-800">
+                      {product.price}
+                    </p>
+                    <Link to="/singleproduct">
+                      <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                        Select Options
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Punjabi
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $10
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
-
-          {/* Last Div */}
-          <div
-            ref={(el) => (buttonRefs.current["8"] = el)}
-            onClick={() => handleClick("8")}
-            className="relative bg-gradient-to-r from-[#ffabae]  to-[#fa737a] w-[20%] h-[250px] -skew-x-12 flex justify-center items-end  overflow-hidden"
-          >
-            <div className="skew-x-6 absolute z-50 p-1 animate-ping-border  rounded-full  top-8 right-4 flex items-center justify-center">
-              <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
-                +
-              </button>
-            </div>
-            <img
-              src="/assets/pngtree-little-suits-traditional-tuxedo-dresses-for-baby-boys-png-image_13305026-removebg-preview.png"
-              alt=""
-              className="w-[300px] object-cover skew-x-12"
-            />
+            ))}
           </div>
 
-          {/* Display Text for Second Div */}
-          {showText["8"] && (
-            <div
-              ref={(el) => (textRefs.current["8"] = el)}
-              className="absolute bottom-24 right-4 w-52 bg-gray-50 p-3 rounded"
-            >
-              <div className="flex justify-between">
-                <p className="text-gray-600 md:text-lg">kidverz</p>
-                <div className="bg-gray-300 rounded-full size-8  flex justify-center items-center">
-                  <i
-                    className="fas fa-close cursor-pointer "
-                    onClick={() => handleClose("8")}
-                  ></i>
+          {/* Second Row */}
+          <div className="flex w-full justify-between mt-6 space-x-6">
+            {productData.slice(4).map((product) => (
+              <div
+                key={product.id}
+                ref={(el) => (buttonRefs.current[product.id] = el)}
+                className={`relative ${product.bgGradient} ${product.width} ${product.marginRight} ${product.marginTop} ${product.height} -skew-x-12 flex justify-center items-end overflow-hidden`}
+              >
+                {/* Plus Sign */}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the click event from propagating to the parent div
+                    handleClick(product.id); // Toggle the text
+                  }}
+                  className="skew-x-6 absolute z-20 p-1 animate-ping-border rounded-full top-8 right-6 flex items-center justify-center"
+                >
+                  <button className="text-white bg-black rounded-full pb-1 size-8 text-xl font-bold transform-none flex items-center justify-center">
+                    +
+                  </button>
                 </div>
+
+                {/* Image */}
+                <img
+                  src={product.imageSrc}
+                  alt=""
+                  className={`${product.imageWidth} object-cover skew-x-12`}
+                />
+
+                {/* Display Text */}
+                {showText[product.id] && (
+                  <div
+                    ref={(el) => (textRefs.current[product.id] = el)}
+                    className={`${product.textPosition} skew-x-12 z-50 w-52 bg-gray-50 p-3 rounded`}
+                  >
+                    <div className="flex justify-between">
+                      <p className="text-gray-600 md:text-lg">kidverz</p>
+                      <div className="bg-gray-300 rounded-full size-8 flex justify-center items-center">
+                        <i
+                          className="fas fa-close cursor-pointer"
+                          onClick={() => handleClose(product.id)}
+                        ></i>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-lg md:text-xl text-gray-800">
+                      {product.title}
+                    </p>
+                    <div className="flex">
+                      <div className="flex mt-2">
+                        {[...Array(5)].map((_, i) => (
+                          <i
+                            key={i}
+                            className="fas fa-star text-yellow-500 text-xs"
+                          ></i>
+                        ))}
+                      </div>
+                      <p className="text-gray-800 ms-1 mt-1">(5)</p>
+                    </div>
+                    <p className="font-semibold text-lg md:text-xl text-gray-800">
+                      {product.price}
+                    </p>
+                    <Link to="/singleproduct">
+                      <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
+                        Select Options
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                Black Suit
-              </p>
-              <div className="flex">
-                <div className="flex mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <i
-                      key={i}
-                      className="fas fa-star text-yellow-500 text-xs"
-                    ></i>
-                  ))}
-                </div>
-                <p className="text-gray-800 ms-1 mt-1">(5)</p>
-              </div>
-              <p className="font-semibold text-lg md:text-xl text-gray-800">
-                $20
-              </p>
-              <Link to="/singleproduct">
-                <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
-                  Select Options
-                </button>
-              </Link>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
       </div>
     </div>

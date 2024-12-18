@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import CartContent from "./CartContent";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
+  const [isCartOpen, setIsCartOpen] = useState(false); // State for the cart
+
+  const sidePanelRef = useRef(null);
+  const cartRef = useRef(null);
+  // Create a reference to the side panel
 
   // Toggle the main menu
   const toggleMenu = () => {
@@ -14,12 +20,37 @@ const Navbar = () => {
   const toggleSubMenu = (menu) => {
     setActiveSubMenu(activeSubMenu === menu ? null : menu);
   };
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
+  // Close the menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sidePanelRef.current &&
+        !sidePanelRef.current.contains(event.target)
+      ) {
+        setIsMenuOpen(false); // Close the side panel if clicked outside
+      }
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    };
+
+    // Add event listener for clicks outside
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div
-      className={`lg:px-0  px-2 container mx-auto transition-all fixed md:left-20 lg:left-8  top-0 z-50 duration-700 ease-in-out `}
+      className={`lg:px-0  px-2 container mx-auto  `}
     >
-      <div className="box mt-3 lg px-6 py-6 lg:py-0 flex justify-between items-center text-gray-800">
+      <div className="box mt-3 lg px-6 py-4 lg:py-0 flex justify-between items-center text-gray-800">
         {/* Left: Logo */}
         <div className="flex justify-center items-center lg:space-x-4 ">
           <Link to="/">
@@ -133,14 +164,14 @@ const Navbar = () => {
         <div className="lg:hidden block">
           {/* Logo centered in mobile view */}
           <Link to="/">
-            <div className="flex flex-col font-neucha items-center px-3 -space-y-3 text-white">
+            <div className="flex flex-col font-neucha items-center md:px-3 -space-y-3 text-white">
               {/* First Row */}
-              <div className="text-xl font-semibold flex rotate-[3deg] tracking-widest ">
+              <div className=" md:text-xl font-semibold flex rotate-[3deg] tracking-widest ">
                 <p>Azmain</p>
               </div>
 
               {/* Second Row */}
-              <div className="text-5xl tracking-tight  font-sans font-bold flex ">
+              <div className="text-3xl md:text-5xl tracking-tight  font-sans font-bold flex ">
                 {[
                   { letter: "K", rotation: -25 },
                   { letter: "i", rotation: 0 },
@@ -160,7 +191,7 @@ const Navbar = () => {
               </div>
 
               {/* Third Row */}
-              <div className="text-xl pt-1 font-semibold flex rotate-[4deg] tracking-widest ">
+              <div className=" md:text-xl pt-1 font-semibold flex rotate-[4deg] tracking-widest ">
                 <p>Mart</p>
               </div>
             </div>
@@ -188,12 +219,15 @@ const Navbar = () => {
           </div>
 
           {/* Cart Icon */}
-          <div className="relative w-8 h-8 md:w-10 md:h-10 flex bg-white  justify-center items-center rounded transition duration-300">
+          <button
+            onClick={toggleCart}
+            className="relative w-8 h-8 md:w-10 md:h-10 flex bg-white  justify-center items-center rounded transition duration-300"
+          >
             <i className="fa fa-shopping-cart"></i>
             <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
               2
             </span>
-          </div>
+          </button>
 
           {/* Search Icon for md */}
           <div className="hidden md:flex lg:hidden  relative w-8 h-8 md:w-10 md:h-10  bg-white justify-center items-center rounded transition duration-300">
@@ -201,9 +235,9 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
       {/* Side Panel */}
       <div
+        ref={sidePanelRef}
         className={`fixed z-50 top-0 left-0 w-64 md:w-80 h-full bg-orange-600 text-white transition-transform transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -254,6 +288,10 @@ const Navbar = () => {
           ))}
         </div>
       </div>
+      {/* Cart Content */}
+      <div ref={cartRef}>
+        <CartContent isCartOpen={isCartOpen} toggleCart={toggleCart} />
+      </div>{" "}
     </div>
   );
 };

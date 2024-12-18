@@ -23,6 +23,8 @@ body {
 .animate-ping-border {
   animation: ping-border 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+
+
 .animated-border {
   --borderColor: #f36303; /* Define the border color directly within the class */
   position: relative;
@@ -32,33 +34,38 @@ body {
   cursor: pointer;
 }
 
+.animated-border {
+  position: relative; /* Ensure the pseudo-elements are positioned relative to this element */
+  border: 1px solid transparent; /* Optional, to make sure the border is transparent when not hovered */
+}
+
 .animated-border::before,
 .animated-border::after {
   content: "";
   position: absolute;
-  width: 0;
-  height: 0;
-  transition: 0.3s ease-in-out;
+  width: 0; /* Start with no width */
+  height: 0; /* Start with no height */
+  transition: 0.3s ease-in-out; /* Animate the expansion of the border */
 }
 
 .animated-border::before {
-  top: -5px;
-  left: -5px;
-  border-top: 1px solid var(--borderColor);
-  border-left: 1px solid var(--borderColor);
+  top: 0;
+  left: 0;
+  border-top: 1px solid var(--borderColor); /* Use your border color */
+  border-left: 1px solid var(--borderColor); /* Use your border color */
 }
 
 .animated-border::after {
-  right: -5px;
-  bottom: -5px;
-  border-bottom: 1px solid var(--borderColor);
-  border-right: 1px solid var(--borderColor);
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid var(--borderColor); /* Use your border color */
+  border-right: 1px solid var(--borderColor); /* Use your border color */
 }
 
 .animated-border:hover::before,
 .animated-border:hover::after {
-  width: calc(100% + 10px); /* Adjusted for smooth animation */
-  height: calc(100% + 10px);
+  width: 100%; /* Expand to the full width of the element */
+  height: 100%; /* Expand to the full height of the element */
 }
 
 
