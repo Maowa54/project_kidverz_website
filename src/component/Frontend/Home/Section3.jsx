@@ -1,173 +1,41 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useState, useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../Frontend/CartContext";
 
-const Section3 = () => {
+const Section3 = ({ products = [] }) => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [visibleCount, setVisibleCount] = useState(8); // Track number of visible products
+  const { addToCart } = useContext(CartContext);
+
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS with a custom duration
-  }, []);
+    if (products.length > 0) {
+      const firstCategory = products[0].category.name;
+      setSelectedCategory(firstCategory);
+      setLoading(false); // Set loading to false once data is available
+    }
+  }, [products]);
 
-  const [activeSection, setActiveSection] = useState("bestSelling");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const sections = [
-    { id: "bestSelling", label: "Best Selling Products" },
-    { id: "children", label: "Children's Outfit" },
-    { id: "floralDress", label: "Girl's Floral Dress" },
-    { id: "winterWear", label: "Kids Winter Wear" },
+  const uniqueCategories = [
+    ...new Set(products.map((product) => product.category.name)),
   ];
 
-  const products = [
-    {
-      id: 1,
-      image: "/assets/2_476edbd5-b71b-46af-aa54-6f32fd4b678c.png",
-      name: "Product Name 1",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 2,
-      image: "/assets/3_c734eebd-04b1-41dd-9a2f-1207e4061d5f.png",
-      name: "Product Name 2",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 3,
-      image: "/assets/3_c2a434c5-feaf-4dd4-b2d1-d608863472f9.png",
-      name: "Product Name 3",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 4,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 5,
-      image: "/assets/3_84cd0b80-c105-46de-a622-fe7963873cae.png",
-      name: "Product Name 5",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 6,
-      image: "/assets/3_cdac32eb-a757-4ab0-aa3a-9ea359456543.png",
-      name: "Product Name 6",
-      price: "$25.00",
-      rating: 4,
-    },
-    // Add more products as needed
-  ];
+  const filteredProducts = products.filter(
+    (product) => product.category.name === selectedCategory
+  );
 
-  const products1 = [
-    {
-      id: 1,
-      image: "/assets/3_84cd0b80-c105-46de-a622-fe7963873cae.png",
-      name: "Product Name 5",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 2,
-      image: "/assets/3_cdac32eb-a757-4ab0-aa3a-9ea359456543.png",
-      name: "Product Name 6",
-      price: "$25.00",
-      rating: 4,
-    },
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message while products are being loaded
+  }
 
-    {
-      id: 3,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 4,
-      image: "/assets/3_c2a434c5-feaf-4dd4-b2d1-d608863472f9.png",
-      name: "Product Name 3",
-      price: "$20.00",
-      rating: 0,
-    },
-
-    // Add more products as needed
-  ];
-
-  const products2 = [
-    {
-      id: 1,
-      image: "/assets/3_c2a434c5-feaf-4dd4-b2d1-d608863472f9.png",
-      name: "Product Name 3",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 2,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 3,
-      image: "/assets/3_c2a434c5-feaf-4dd4-b2d1-d608863472f9.png",
-      name: "Product Name 3",
-      price: "$20.00",
-      rating: 0,
-    },
-    {
-      id: 4,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-
-    // Add more products as needed
-  ];
-
-  const products3 = [
-    {
-      id: 1,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 2,
-      image: "/assets/3_cdac32eb-a757-4ab0-aa3a-9ea359456543.png",
-      name: "Product Name 6",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 3,
-      image: "/assets/3_87c64513-ec7e-4102-951a-1b3d78b652a5.png",
-      name: "Product Name 4",
-      price: "$25.00",
-      rating: 4,
-    },
-    {
-      id: 4,
-      image: "/assets/3_c2a434c5-feaf-4dd4-b2d1-d608863472f9.png",
-      name: "Product Name 3",
-      price: "$20.00",
-      rating: 0,
-    },
-
-    // Add more products as needed
-  ];
+  const handleViewMore = () => {
+    setVisibleCount((prevCount) => prevCount + 8); // Increase visible products by 8
+  };
 
   return (
     <div>
-      <div className="relative mt-5 lg:mt-20 md:py-8 ">
+      <div className="relative mt-5 lg:mt-20 md:py-8">
         <p className="text-3xl md:text-5xl px-12 md:px-24 lg:px-96 text-center font-bold text-gray-800">
           Popular Fashion Designs For Children
         </p>
@@ -178,7 +46,7 @@ const Section3 = () => {
           best option to choose.
         </p>
 
-        <div className="absolute hidden lg:block bottom-0 left-8  ">
+        <div className="absolute hidden lg:block bottom-0 left-8">
           <img
             src="/public/assets/Cute-Baby-Onesie-Clipart-75866179-1.png"
             alt=""
@@ -198,363 +66,134 @@ const Section3 = () => {
         {/* Dropdown for small screens */}
         <div className="px-4">
           <div className="sm:hidden border border-black relative mt-4">
-            <button
-              className=" w-full py-2 px-4 text-lg font-medium  text-gray-800 hover:bg-[#F65E17] hover:text-white flex justify-between items-center"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full py-2 px-4 border rounded"
             >
-              <span>
-                {
-                  sections.find((section) => section.id === activeSection)
-                    ?.label
-                }
-              </span>
-              <span>
-                {dropdownOpen ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 15l7-7 7 7"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                )}
-              </span>
-            </button>
-            {dropdownOpen && (
-              <div className="absolute z-10 mt-2   bg-white shadow-md rounded-md">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    className={`w-full py-2 px-4 text-left text-lg font-medium ${
-                      activeSection === section.id
-                        ? "bg-[#F65E17]  text-white"
-                        : "bg-gray-300 text-gray-800"
-                    } hover:bg-[#F65E17]   hover:text-white`}
-                    onClick={() => {
-                      setActiveSection(section.id);
-                      setDropdownOpen(false);
-                    }}
-                  >
-                    {section.label}
-                  </button>
-                ))}
-              </div>
-            )}
+              {uniqueCategories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
-
-        {/* Buttons for medium and larger screens */}
-        <div className="hidden sm:flex justify-center px-4 mt-2 text-nowrap lg:px-0 space-x-4">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className={`py-2 px-2 lg:px-4 lg:text-lg font-medium ${
-                activeSection === section.id
-                  ? "bg-[#F65E17] text-white"
-                  : "bg-gray-300 text-gray-800"
-              } hover:bg-[#F65E17] hover:text-white`}
-              onClick={() => setActiveSection(section.id)}
-            >
-              {section.label}
-            </button>
-          ))}
         </div>
       </div>
 
-      {activeSection === "bestSelling" && (
-        <Link
-          to="/singleproduct"
-          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="border shadow group flex flex-col relative"
-            >
-              <div className="bg-gray-100 relative">
+      {/* Buttons for medium and larger screens */}
+      <div className="hidden md:flex justify-center mx-auto mt-4 items-center text-center space-x-4">
+        {uniqueCategories.map((category) => (
+          <button
+            key={category}
+            className={`py-2 px-4 lg:text-lg font-medium ${
+              selectedCategory === category
+                ? "bg-[#F65E17] text-white"
+                : "bg-gray-300 text-gray-800"
+            } hover:bg-[#F65E17] hover:text-white`}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {filteredProducts.slice(0, visibleCount).map((product) => (
+          <div
+            key={product.id}
+            className="border shadow flex flex-col relative group"
+          >
+            <div className="bg-gray-100 relative">
+              <Link to={`/singleproduct/${product.name}-${product.id}`}>
                 <img
-                  src={product.image}
+                  src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
                   alt={product.name}
                   className="w-full"
                 />
-                <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <i
-                        key={i}
-                        className="fas fa-star text-gray-400 text-xs"
-                      ></i>
-                    ))}
-                  </div>
-                  <span className="text-gray-800 ms-1">(0)</span>
-                </div>
-
-                <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                  {[
-                    { icon: "fas fa-shopping-cart" },
-                    { icon: "far fa-heart" },
-                    { icon: "far fa-eye" },
-                    { icon: "fa fa-exchange-alt" },
-                  ].map((action, index) => (
-                    <div key={index} className=" ">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
-                        <i className={`${action.icon} text-white`}></i>
-                      </div>
-                    </div>
+              </Link>
+              <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="fas fa-star text-gray-400 text-xs"
+                    ></i>
                   ))}
                 </div>
+                <span className="text-gray-800 ms-1">(0)</span>
               </div>
 
-              <div className="px-4 py-2">
-                <h2 className="text-lg font-medium text-gray-800 md:text-xl">
-                  {product.name}
-                </h2>
-                <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
-                  {product.price}
-                </p>
-                <div className="mt-2 flex gap-2">
-                  {["red", "yellow", "purple", "green", "blue"].map((color) => (
-                    <button
-                      key={color}
-                      className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                    >
-                      <div
-                        className={`bg-${color}-500 rounded-full w-4 h-4`}
-                      ></div>
-                    </button>
-                  ))}
-                </div>
+              <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition duration-300">
+                {[
+                  "fas fa-shopping-cart",
+                  "far fa-heart",
+                  "far fa-eye",
+                  "fa fa-exchange-alt",
+                ].map((icon, index) => (
+                  <div
+                    key={index}
+                    className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300"
+                  >
+                    {icon === "fas fa-shopping-cart" ? (
+                      <button
+                        onClick={() => addToCart(product, )}
+                        className="flex justify-center items-center w-full h-full"
+                      >
+                        <i className={`${icon} text-white`}></i>
+                      </button>
+                    ) : icon === "far fa-eye" ? (
+                      <Link
+                        to={`/singleproduct/${product.name}-${product.id}`}
+                        className="flex justify-center items-center w-full h-full"
+                      >
+                        <i className={`${icon} text-white`}></i>
+                      </Link>
+                    ) : (
+                      <i className={`${icon} text-white`}></i>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </Link>
-      )}
-      {activeSection === "children" && (
-        <Link
-          to="/singleproduct"
-          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {products1.map((product) => (
-            <div
-              key={product.id}
-              className="border shadow flex flex-col relative"
-            >
-              <div className="bg-gray-100 relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full"
-                />
-                <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <i
-                        key={i}
-                        className="fas fa-star text-gray-400 text-xs"
-                      ></i>
-                    ))}
-                  </div>
-                  <span className="text-gray-800 ms-1">(0)</span>
-                </div>
 
-                <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                  {[
-                    { icon: "fa-shopping-cart" },
-                    { icon: "far fa-heart" },
-                    { icon: "far fa-eye" },
-                    { icon: "fa fa-exchange-alt" },
-                  ].map((action, index) => (
-                    <div key={index} className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
-                        <i className={`${action.icon} text-white`}></i>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="px-4 py-2">
-                <h2 className="text-lg font-medium text-gray-800 md:text-xl">
-                  {product.name}
-                </h2>
-                <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
-                  {product.price}
-                </p>
-                <div className="mt-2 flex gap-2">
-                  {["red", "yellow", "purple", "green", "blue"].map((color) => (
-                    <button
-                      key={color}
-                      className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                    >
-                      <div
-                        className={`bg-${color}-500 rounded-full w-4 h-4`}
-                      ></div>
-                    </button>
-                  ))}
-                </div>
+            <div className="px-4 py-2">
+              <h2 className="text-lg font-medium text-gray-800 md:text-xl">
+                {product.name}
+              </h2>
+              <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
+                {product.price}
+              </p>
+              <div className="mt-2 flex gap-2">
+                {[
+                  "bg-red-500",
+                  "bg-yellow-500",
+                  "bg-purple-500",
+                  "bg-green-500",
+                  "bg-blue-500",
+                ].map((color, index) => (
+                  <button
+                    key={index}
+                    className={`rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center`}
+                  >
+                    <div className={`${color} rounded-full w-4 h-4`}></div>
+                  </button>
+                ))}
               </div>
             </div>
-          ))}
-        </Link>
-      )}
+          </div>
+        ))}
+      </div>
 
-      {activeSection === "floralDress" && (
-        <Link
-          to="/singleproduct"
-          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {products2.map((product) => (
-            <div
-              key={product.id}
-              className="border shadow flex flex-col relative"
-            >
-              <div className="bg-gray-100 relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full"
-                />
-                <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <i
-                        key={i}
-                        className="fas fa-star text-gray-400 text-xs"
-                      ></i>
-                    ))}
-                  </div>
-                  <span className="text-gray-800 ms-1">(0)</span>
-                </div>
-
-                <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                  {[
-                    { icon: "fa-shopping-cart" },
-                    { icon: "far fa-heart" },
-                    { icon: "far fa-eye" },
-                    { icon: "fa fa-exchange-alt" },
-                  ].map((action, index) => (
-                    <div key={index} className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
-                        <i className={`${action.icon} text-white`}></i>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="px-4 py-2">
-                <h2 className="text-lg font-medium text-gray-800 md:text-xl">
-                  {product.name}
-                </h2>
-                <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
-                  {product.price}
-                </p>
-                <div className="mt-2 flex gap-2">
-                  {["red", "yellow", "purple", "green", "blue"].map((color) => (
-                    <button
-                      key={color}
-                      className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                    >
-                      <div
-                        className={`bg-${color}-500 rounded-full w-4 h-4`}
-                      ></div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </Link>
-      )}
-      {activeSection === "winterWear" && (
-        <Link
-          to="/singleproduct"
-          className="section-2 container mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {products3.map((product) => (
-            <div
-              key={product.id}
-              className="border shadow flex flex-col relative"
-            >
-              <div className="bg-gray-100 relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full"
-                />
-                <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <i
-                        key={i}
-                        className="fas fa-star text-gray-400 text-xs"
-                      ></i>
-                    ))}
-                  </div>
-                  <span className="text-gray-800 ms-1">(0)</span>
-                </div>
-
-                <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                  {[
-                    { icon: "fa-shopping-cart" },
-                    { icon: "far fa-heart" },
-                    { icon: "far fa-eye" },
-                    { icon: "fa fa-exchange-alt" },
-                  ].map((action, index) => (
-                    <div key={index} className="">
-                      <div className="w-10 h-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#F65E17] transition duration-300">
-                        <i className={`${action.icon} text-white`}></i>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="px-4 py-2">
-                <h2 className="text-lg font-medium text-gray-800 md:text-xl">
-                  {product.name}
-                </h2>
-                <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
-                  {product.price}
-                </p>
-                <div className="mt-2 flex gap-2">
-                  {["red", "yellow", "purple", "green", "blue"].map((color) => (
-                    <button
-                      key={color}
-                      className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                    >
-                      <div
-                        className={`bg-${color}-500 rounded-full w-4 h-4`}
-                      ></div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </Link>
+      {visibleCount < filteredProducts.length && (
+        <div className="text-center mt-6">
+          <button
+            className="bg-[#F65E17] text-white py-2 px-6 rounded hover:bg-[#d54b14] transition"
+            onClick={handleViewMore}
+          >
+            View More
+          </button>
+        </div>
       )}
     </div>
   );

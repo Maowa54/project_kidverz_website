@@ -138,7 +138,8 @@ const Section6 = () => {
       {/* Product Cards Section */}
       <div className="px-8 -mt-36 md:-mt-40">
         <Link
-          to="/singleproduct"
+                              // to= {`/singleproduct/${product.name}-${product.id}`}
+
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {products

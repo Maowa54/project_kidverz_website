@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState ,useContext} from "react";
 import { Link } from "react-router-dom";
-import CartContent from "./CartContent";
+import AddToCart from "./AddToCart";
+import { CartContext } from "./CartContext";
+
 
 const Navbar = () => {
+  const { cartCount } = useContext(CartContext);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false); // State for the cart
@@ -225,7 +229,7 @@ const Navbar = () => {
           >
             <i className="fa fa-shopping-cart"></i>
             <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
-              2
+              {cartCount}
             </span>
           </button>
 
@@ -290,7 +294,7 @@ const Navbar = () => {
       </div>
       {/* Cart Content */}
       <div ref={cartRef}>
-        <CartContent isCartOpen={isCartOpen} toggleCart={toggleCart} />
+        <AddToCart isCartOpen={isCartOpen} toggleCart={toggleCart} />
       </div>{" "}
     </div>
   );

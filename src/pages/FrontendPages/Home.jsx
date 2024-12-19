@@ -6,32 +6,37 @@ import Section5 from "../../component/Frontend/Home/Section5";
 import Section6 from "../../component/Frontend/Home/Section6";
 import Section7 from "../../component/Frontend/Home/Section7";
 
-const Home = () => {
+const Home = ({products}) => {
+
+
+  console.log(products);
+
+  
   return (
     <div className="overflow-hidden ">
       {/* First Section */}
-      <Section1 />
+      <Section1 products={products}/>
 
       {/* Second Section */}
 
-      <Section2 />
+      <Section2 products={products}/>
 
       {/* third Section */}
 
-    <Section3/>
+    <Section3 products={products}/>
 
     {/* Fifth Section */}
 
-    <Section5/>
+    <Section5 products={products}/>
 
     {/* Sixth Section */}
 
-    <Section6/>
+    <Section6 products={products}/>
 
 
      {/* Seventh Section */}
 
-     <Section7/>
+     <Section7 products={products}/>
 
  {/* Footer Section */}
  <Footer/>

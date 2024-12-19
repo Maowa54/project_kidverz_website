@@ -43,7 +43,6 @@ const Section1 = () => {
     };
   }, []);
 
-  console.log(showText);
   const productData = [
     {
       id: "1",
@@ -77,7 +76,7 @@ const Section1 = () => {
       height: "h-[350px]",
       imageSrc:
         "/assets/WhatsApp_Image_2024-12-10_at_2.10.08_PM-removebg-preview.png",
-      imageWidth: "w-[500px]",
+      imageWidth: "w-[320px]",
       textPosition: "absolute top-20 -right-14",
       title: "Suit",
       price: "$30",
@@ -89,7 +88,7 @@ const Section1 = () => {
       height: "h-[250px]",
       imageSrc:
         "/assets/png-transparent-girl-cute-little-girl-child-fashion-girl-hat-thumbnail-removebg-preview.png",
-      imageWidth: "w-[180px]",
+      imageWidth: "w-[160px]",
       textPosition: "absolute top-20 -right-16",
       title: "Yellow Dress",
       price: "$22",
@@ -120,7 +119,6 @@ const Section1 = () => {
         "absolute bottom-20 left-56 z-50 w-52 bg-gray-50 p-3 rounded",
       title: "Punjabi",
       price: "$10",
-
     },
     {
       id: "7",
@@ -237,7 +235,7 @@ const Section1 = () => {
                     <p className="font-semibold text-lg md:text-xl text-gray-800">
                       {product.price}
                     </p>
-                    <Link to="/singleproduct">
+                    <Link >
                       <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
                         Select Options
                       </button>
@@ -308,7 +306,7 @@ const Section1 = () => {
                     <p className="font-semibold text-lg md:text-xl text-gray-800">
                       {product.price}
                     </p>
-                    <Link to="/singleproduct">
+                    <Link >
                       <button className="bg-orange-600 mt-2 hover:bg-orange-500 p-2 text-white rounded text-sm">
                         Select Options
                       </button>

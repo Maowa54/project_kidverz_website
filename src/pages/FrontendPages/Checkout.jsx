@@ -2,7 +2,7 @@ import Footer from "../../component/Frontend/Footer";
 
 const Checkout = () => {
   return (
-    <div className=" overflow-hidden">
+    <div className="mt-6 overflow-hidden">
       <div className="px-4 lg:px-0 container mx-auto">
         {/* Grid Layout */}
         <div className="grid md:grid-cols-2 gap-8">
