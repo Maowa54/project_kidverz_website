@@ -265,5 +265,9 @@ button:disabled {
   }
 }
 
-
-  
+@font-face {
+  font-family: 'LiByomgraphyKoushali';
+  src: url('/public/Li Byomgraphy Koushali ANSI V2 Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}

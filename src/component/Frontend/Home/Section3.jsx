@@ -36,14 +36,14 @@ const Section3 = ({ products = [] }) => {
   return (
     <div>
       <div className="relative mt-5 lg:mt-20 md:py-8">
-        <p className="text-3xl md:text-5xl px-12 md:px-24 lg:px-96 text-center font-bold text-gray-800">
-          Popular Fashion Designs For Children
+        <p className="text-3xl font-galada tracking-wide md:text-5xl px-12 md:px-24 lg:px-96 text-center font-bold text-gray-800">
+          শিশুদের জন্য জনপ্রিয় ফ্যাশন ডিজাইন
         </p>
-        <p className="text-gray-600 text-center px-8 md:px-24 lg:px-80 md:text-lg mt-2 md:mt-4">
-          KidVerz features a massive collection of stylish and colorful designs.
-          Our products have been made according to the latest fashion trends.
-          When it comes to the design of children’s clothing, KidVerz is the
-          best option to choose.
+        <p className="text-gray-600 font-galada  text-center px-8 md:px-24 lg:px-80 md:text-lg mt-2 md:mt-4">
+          আজমাইন কিডস মার্ট একটি বিশাল সংগ্রহের স্টাইলিশ এবং রঙিন ডিজাইনের পণ্য
+          সরবরাহ করে। আমাদের পণ্যসমূহ সর্বশেষ ফ্যাশন প্রবণতা অনুসারে তৈরি করা
+          হয়েছে। শিশুদের পোশাকের ডিজাইনের ক্ষেত্রে, আজমাইন কিডস মার্ট হল সেরা
+          পছন্দ।
         </p>
 
         <div className="absolute hidden lg:block bottom-0 left-8">
@@ -109,7 +109,7 @@ const Section3 = ({ products = [] }) => {
                 <img
                   src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
                   alt={product.name}
-                  className="w-full"
+                  className="w-full h-96"
                 />
               </Link>
               <div className="absolute top-2 right-2 px-1 bg-gray-200 flex items-center">
@@ -137,7 +137,7 @@ const Section3 = ({ products = [] }) => {
                   >
                     {icon === "fas fa-shopping-cart" ? (
                       <button
-                        onClick={() => addToCart(product, )}
+                        onClick={() => addToCart(product)}
                         className="flex justify-center items-center w-full h-full"
                       >
                         <i className={`${icon} text-white`}></i>
@@ -162,8 +162,14 @@ const Section3 = ({ products = [] }) => {
                 {product.name}
               </h2>
               <p className="mt-1 text-lg font-semibold text-gray-800 md:text-xl">
-                {product.price}
+                ৳{" "}
+                {product.variation_combinations &&
+                product.variation_combinations.length > 0
+                  ? product.variation_combinations[0].price
+                  : product.price}
               </p>
+              {/* ৳ {product.variation_combinations[0]?.price} */}
+
               <div className="mt-2 flex gap-2">
                 {[
                   "bg-red-500",

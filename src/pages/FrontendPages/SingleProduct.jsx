@@ -151,13 +151,16 @@ const SingleProduct = ({ products }) => {
                     {product.name}
                   </p>
                   <p className="text-2xl md:text-4xl font-medium mt-2">
-                    
-                    ৳ {product.price}
+                    ৳{" "}
+                    {product.variation_combinations &&
+                    product.variation_combinations.length > 0
+                      ? product.variation_combinations[0].price
+                      : product.price}
                   </p>
 
                   <div className="my-4 grid grid-cols-12 gap-4 text-base md:text-lg">
                     <div className="col-span-3 font-semibold">Vendor</div>
-                    <div className="col-span-9 font-normal">KidVerz</div>
+                    <div className="col-span-9 font-normal">AZMAIN FASHION</div>
 
                     <div className="col-span-3 font-semibold">Availability</div>
                     <div className="col-span-9 font-normal">In stock</div>

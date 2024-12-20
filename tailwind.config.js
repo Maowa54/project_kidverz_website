@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         neucha: ['Neucha', 'cursive'],
+        galada: ['Galada', 'cursive'],
+
+
       },
 
     },
