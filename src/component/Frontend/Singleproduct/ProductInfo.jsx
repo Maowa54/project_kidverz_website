@@ -87,7 +87,7 @@ const ProductInfo = () => {
               <p className="mt-2">Be the first to write a review</p>
             </div>
             <div>
-              <button className="bg-[#288EFC] hover:bg-indigo-400 py-2 px-12 mt-2 rounded-sm text-white">
+              <button className="bg-[#E00BBA] hover:bg-[#EB1E39] py-2 px-12 mt-2 rounded-sm text-white">
                 Write a review
               </button>
             </div>

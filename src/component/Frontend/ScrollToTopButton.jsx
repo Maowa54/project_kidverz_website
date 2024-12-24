@@ -29,7 +29,7 @@ const ScrollToTopButton = () => {
         className="fixed bottom-14 right-8 w-12 h-12 flex items-center group justify-center z-40 cursor-pointer transition-opacity duration-300"
         onClick={scrollToTop}
       >
-        <svg width="48" height="48" className="absolute fill-transparent group-hover:fill-orange-600">
+        <svg width="48" height="48" className="absolute fill-transparent group-hover:fill-pink-600">
           {/* Gray background circle */}
           <circle
             cx="24"
@@ -43,7 +43,7 @@ const ScrollToTopButton = () => {
             cx="24"
             cy="24"
             r={circleRadius}
-            stroke="orange"
+            stroke="red"
             strokeWidth="2"
             fill="none"
             strokeDasharray={circumference}
@@ -61,7 +61,7 @@ const ScrollToTopButton = () => {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          className="w-5 h-5 text-orange-600 group-hover:text-white relative z-10"
+          className="w-5 h-5 text-red-700 group-hover:text-white relative z-10"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7 7 7M12 21V3" />
         </svg>

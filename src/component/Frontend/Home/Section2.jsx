@@ -1,50 +1,8 @@
-const Section2 = () => {
-  const cards = [
-    {
-      img: "/assets/images.jpg",
-      age: "0-4 Years",
-      description:
-        "Where imagination meets style! Our collection is crafted with young adventurers in mind.",
-    },
-    {
-      img: "/assets/ce6edf8be3281392142fb538d9b5219e2579c7f3_1024_1024.jpeg",
-      age: "5-9 Years",
-      description:
-        "Where imagination meets style! Our collection is crafted with young adventurers in mind.",
-    },
-    {
-      img: "/assets/images.jpg",
-      age: "10-17 Years",
-      description:
-        "Where imagination meets style! Our collection is crafted with young adventurers in mind.",
-    },
-  ];
+import { Link } from "react-router-dom";
 
-  const Card = ({ img, age, description }) => (
-    <div className="flex group gap-2 animated-border shadow-lg p-2 mt-6">
-      <img src={img} alt="" className="w-16 md:w-[100px]" />
-      <div className="ml-2 md:ml-4 skew-x-12">
-        <p className="text-gray-800 font-semibold text-base md:text-2xl">
-          {age}
-        </p>
-        <p className="text-gray-500 text-sm md:text-base">{description}</p>
-      </div>
-      <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
-        <button className="text-orange-700">Explore</button>
-        <svg
-          width="24"
-          height="24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="fill-orange-700"
-        >
-          <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
-        </svg>
-      </div>
-    </div>
-  );
-
+const Section2 = ({ products = [] }) => {
   return (
-    <div className="mt-20 py-6 grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div className="mt-4 md:mt-20 md:py-6 grid grid-cols-1 md:grid-cols-2 gap-2">
       <div className="w-[200px] h-60 md:w-[300px] lg:w-[450px] md:h-full bg-[#40C2CA] flex justify-end items-center">
         <div className="-skew-x-12 -mr-16 md:-mr-24 lg:-mr-36">
           <img
@@ -61,30 +19,200 @@ const Section2 = () => {
             Fashion By Age
           </p>
           <p className="mt-4 md:text-lg text-gray-500">
-            Welcome to the vibrant world of kidverz, where imagination meets
-            style! Our collection is crafted with young adventurers in mind,
-            blending comfort with the latest trends to ensure your little ones
-            not only look their best but also feel their best.
+            Welcome to Azmain Kids Mart, where style meets every age! Our
+            collection is thoughtfully crafted for young adventurers, blending
+            comfort and the latest trends to ensure your little ones look and
+            feel their best.
           </p>
         </div>
 
         {/* Desktop Cards */}
         <div className="hidden md:block mt-6 space-y-2 md:pr-6 lg:pr-20 -skew-x-12">
-          {cards.map((card, index) => (
-            <Card key={index} {...card} />
-          ))}
+          <Link
+            to="/allproduct/0-6"
+            className="flex group gap-2 animated-border shadow-lg p-2 mt-6"
+          >
+            <img
+              src="/assets/images.jpg"
+              alt=""
+              className="w-16 md:w-[100px]"
+            />
+            <div className="ml-2 md:ml-4 skew-x-12">
+              <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                0-6 Years
+              </p>
+              <p className="text-gray-500 text-sm md:text-base">
+                Designed for the little ones, our collection combines fun and
+                comfort.
+              </p>
+            </div>
+            <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+              <button className="text-pink-700">Explore</button>
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-pink-700"
+              >
+                <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="/allproduct/6-12"
+            className="flex group gap-2 animated-border shadow-lg p-2 mt-6"
+          >
+            <img
+              src="/assets/images.jpg"
+              alt=""
+              className="w-16 md:w-[100px]"
+            />
+            <div className="ml-2 md:ml-4 skew-x-12">
+              <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                 6-12Years
+              </p>
+              <p className="text-gray-500 text-sm md:text-base">
+                Where imagination meets style! Our collection is crafted with
+                young adventurers in mind.
+              </p>
+            </div>
+            <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+              <button className="text-pink-700">Explore</button>
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-pink-700"
+              >
+                <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            to="/allproduct/13-18"
+            className="flex group gap-2 animated-border shadow-lg p-2 mt-6"
+          >
+            <img
+              src="/assets/images.jpg"
+              alt=""
+              className="w-16 md:w-[100px]"
+            />
+            <div className="ml-2 md:ml-4 skew-x-12">
+              <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                13-18 Years
+              </p>
+              <p className="text-gray-500 text-sm md:text-base">
+                Where imagination meets style! Our collection is crafted with
+                young adventurers in mind.
+              </p>
+            </div>
+            <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+              <button className="text-pink-700">Explore</button>
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-pink-700"
+              >
+                <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+              </svg>
+            </div>
+          </Link>
         </div>
 
         {/* Mobile Cards */}
         <div className="block md:hidden p-4">
-          {cards.map((card, index) => (
-            <div key={index} className="mt-2 -skew-x-12">
-              <Card {...card} />
+          <div className="mt-2 -skew-x-12">
+            <div className="flex group gap-2 animated-border shadow-lg p-2 mt-6">
+              <img
+                src="/assets/images.jpg"
+                alt=""
+                className="w-16 md:w-[100px]"
+              />
+              <div className="ml-2 md:ml-4 skew-x-12">
+                <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                  0-4 years
+                </p>
+                <p className="text-gray-500 text-sm md:text-base">
+                  Where imagination meets style! Our collection is crafted with
+                  young adventurers in mind.
+                </p>
+              </div>
+              <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+                <button className="text-orange-700">Explore</button>
+                <svg
+                  width="24"
+                  height="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-orange-700"
+                >
+                  <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                </svg>
+              </div>
             </div>
-          ))}
+          </div>
+          <div className="mt-2 -skew-x-12">
+            <div className="flex group gap-2 animated-border shadow-lg p-2 mt-6">
+              <img
+                src="/assets/images.jpg"
+                alt=""
+                className="w-16 md:w-[100px]"
+              />
+              <div className="ml-2 md:ml-4 skew-x-12">
+                <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                  0-4 years
+                </p>
+                <p className="text-gray-500 text-sm md:text-base">
+                  Where imagination meets style! Our collection is crafted with
+                  young adventurers in mind.
+                </p>
+              </div>
+              <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+                <button className="text-orange-700">Explore</button>
+                <svg
+                  width="24"
+                  height="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-orange-700"
+                >
+                  <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div className="mt-2 -skew-x-12">
+            <div className="flex group gap-2 animated-border shadow-lg p-2 mt-6">
+              <img
+                src="/assets/images.jpg"
+                alt=""
+                className="w-16 md:w-[100px]"
+              />
+              <div className="ml-2 md:ml-4 skew-x-12">
+                <p className="text-gray-800 font-semibold text-base md:text-2xl">
+                  0-4 years
+                </p>
+                <p className="text-gray-500 text-sm md:text-base">
+                  Where imagination meets style! Our collection is crafted with
+                  young adventurers in mind.
+                </p>
+              </div>
+              <div className="skew-x-12 hidden group-hover:flex flex-col justify-center items-center">
+                <button className="text-orange-700">Explore</button>
+                <svg
+                  width="24"
+                  height="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-orange-700"
+                >
+                  <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
     </div>
   );
 };

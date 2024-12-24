@@ -1,3 +1,4 @@
+import Carticon from "../../component/Frontend/Carticon";
 import Footer from "../../component/Frontend/Footer";
 import Section1 from "../../component/Frontend/Home/Section1";
 import Section2 from "../../component/Frontend/Home/Section2";
@@ -14,6 +15,7 @@ const Home = ({products}) => {
   
   return (
     <div className="overflow-hidden ">
+        <Carticon />
       {/* First Section */}
       <Section1 products={products}/>
 

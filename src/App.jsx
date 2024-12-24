@@ -7,6 +7,7 @@ import ScrollToTopButton from "./component/Frontend/ScrollToTopButton";
 import Checkout from "./pages/FrontendPages/Checkout";
 import axios from "axios";
 import ScrollToTop from "./component/Frontend/ScrollToTop";
+import AllProduct from "./pages/FrontendPages/AllProduct";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -50,6 +51,9 @@ const App = () => {
             element={<SingleProduct products={products} />}
           />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/allproduct/:age" element={<AllProduct products={products} />} />
+
+
         </Routes>
         <ScrollToTopButton />
       </Router>

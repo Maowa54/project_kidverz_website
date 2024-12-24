@@ -6,7 +6,6 @@ body {
   font-family: "Sour Gummy", sans-serif;
 }
 
-/* Custom Ping Animation for White Border */
 @keyframes ping-border {
   0% {
     box-shadow: 0 0 0 2px rgb(255, 255, 255); /* Initial small white border */
@@ -19,6 +18,22 @@ body {
   }
 }
 
+/* Adjust Ping Animation for Small Screens */
+@media (max-width: 640px) { /* Tailwind's `sm` breakpoint */
+  @keyframes ping-border {
+    0% {
+      box-shadow: 0 0 0 1px rgb(255, 255, 255); /* Reduced initial border size */
+    }
+    75% {
+      box-shadow: 0 0 0 3px rgb(255, 255, 255); /* Reduced expanded border size */
+    }
+    100% {
+      box-shadow: 0 0 0 1px rgb(255, 255, 255); /* Reduced return border size */
+    }
+  }
+}
+
+
 /* Apply the border ping animation */
 .animate-ping-border {
   animation: ping-border 2s cubic-bezier(0, 0, 0.2, 1) infinite;
@@ -26,7 +41,7 @@ body {
 
 
 .animated-border {
-  --borderColor: #f36303; /* Define the border color directly within the class */
+  --borderColor: #EB1E39; /* Define the border color directly within the class */
   position: relative;
   width: auto;
   margin: auto;
@@ -135,7 +150,7 @@ body {
 }
 
 .box {
-  background-color: #f65e17;
+  background-color: #ED1D38;
   --mask: linear-gradient(#000 0 0) 50% / calc(100% - 22.2px)
       calc(100% - 22.2px) no-repeat,
     radial-gradient(farthest-side, #000 98%, #0000) 0 0/24px 24px round;
@@ -265,9 +280,135 @@ button:disabled {
   }
 }
 
-@font-face {
-  font-family: 'LiByomgraphyKoushali';
-  src: url('/public/Li Byomgraphy Koushali ANSI V2 Italic.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
+/* Define the keyframe animation for forward and backward movement */
+@keyframes moveIconForwardBackward {
+  0% {
+    transform: translateX(0); /* Start at the initial position */
+  }
+  50% {
+    transform: translateX(10px); /* Move 20px to the right */
+  }
+  100% {
+    transform: translateX(0); /* Return to the initial position */
+  }
+}
+/* Apply the animation to the icon */
+.animate-icon {
+  display: inline-block; /* Ensure the icon is an inline-block for transformations */
+  animation: moveIconForwardBackward 1s ease-in-out infinite; /* 1s duration, smooth easing, infinite loop */
+}
+
+
+
+
+@media (max-width: 767px) {
+  .single-mobile-flying-div {
+    position: fixed;
+    opacity: 0;
+    visibility: visible;
+    display: block;
+    animation: single_mobile_fly_to_cart 1s ease-out;
+  }
+
+  @keyframes single_mobile_fly_to_cart {
+    0% {
+      left: 20%;
+      top: 10%;
+      opacity: 1;
+    }
+
+    100% {
+      left: calc(100% - 198px);
+      top: 5%;
+      opacity: 0.5;
+      transform: scale(0.05);
+    }
+  }
+
+  .popup-mobile-flying-div {
+    position: fixed;
+    opacity: 0;
+    visibility: visible;
+    display: block;
+    animation: popup_mobile_fly_to_cart 1s ease-out;
+  }
+
+  @keyframes popup_mobile_fly_to_cart {
+    0% {
+      left: 20%;
+      top: 40%;
+      opacity: 1;
+    }
+
+    100% {
+      left: calc(100% - 100px);
+      top: 40%;
+      opacity: 0.5;
+      transform: scale(0.05);
+    }
+  }
+}
+
+
+
+@media (min-width: 768px) {
+
+  .single-flying-div {
+    /* or relative/fixed */
+    position: fixed;
+    opacity: 0;
+    visibility: visible;
+    display: block;
+    animation: single_fly_to_cart 1s ease-out;
+  }
+
+  @keyframes single_fly_to_cart {
+    0% {
+      left: 10%;
+      /* Adjust to start position */
+      top: 20%;
+      /* Adjust to start position */
+      opacity: 1;
+    }
+
+    100% {
+      left: calc(100% - 200px);
+      /* Adjust to end position */
+      bottom: 100px;
+      /* Adjust to end position */
+      opacity: .5;
+      /* Optional fade-out */
+      transform: scale(0.01);
+    }
+  }
+
+
+  .popup-flying-div {
+    /* or relative/fixed */
+    position: absolute;
+    opacity: 0;
+    visibility: visible;
+    display: block;
+    animation: popup_fly_to_cart 2s ease-out;
+  }
+
+  @keyframes popup_fly_to_cart {
+    0% {
+      left: 35%;
+      /* Adjust to start position */
+      bottom: 250px;
+      /* Adjust to start position */
+      opacity: 1;
+    }
+
+    100% {
+      left: calc(100% - 100px);
+      /* Adjust to end position */
+      bottom: 250px;
+      /* Adjust to end position */
+      opacity: .5;
+      /* Optional fade-out */
+      transform: scale(0.1);
+    }
+  }
 }

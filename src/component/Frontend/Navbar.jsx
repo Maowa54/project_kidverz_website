@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState ,useContext} from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import AddToCart from "./AddToCart";
-import { CartContext } from "./CartContext";
-
+import { WishContext } from "./WishContext";
+import Wishlist from "./WishList";
 
 const Navbar = () => {
-  const { cartCount } = useContext(CartContext);
+  const { wishCount } = useContext(WishContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
-  const [isCartOpen, setIsCartOpen] = useState(false); // State for the cart
+  const [isWishOpen, setisWishOpen] = useState(false); // State for the cart
 
   const sidePanelRef = useRef(null);
-  const cartRef = useRef(null);
+  const wishRef = useRef(null);
   // Create a reference to the side panel
 
   // Toggle the main menu
@@ -24,8 +23,8 @@ const Navbar = () => {
   const toggleSubMenu = (menu) => {
     setActiveSubMenu(activeSubMenu === menu ? null : menu);
   };
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
+  const toggleWish = () => {
+    setisWishOpen(!isWishOpen);
   };
 
   // Close the menu when clicking outside
@@ -37,8 +36,8 @@ const Navbar = () => {
       ) {
         setIsMenuOpen(false); // Close the side panel if clicked outside
       }
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
-        setIsCartOpen(false);
+      if (wishRef.current && !wishRef.current.contains(event.target)) {
+        setisWishOpen(false);
       }
     };
 
@@ -51,9 +50,7 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <div
-      className={`lg:px-0  px-2 container mx-auto  `}
-    >
+    <div className={`lg:px-0  px-2 container mx-auto  `}>
       <div className="box mt-3 lg px-6 py-4 lg:py-0 flex justify-between items-center text-gray-800">
         {/* Left: Logo */}
         <div className="flex justify-center items-center lg:space-x-4 ">
@@ -214,22 +211,16 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* Wishlist Icon */}
-          <div className="hidden md:flex  relative w-8 h-8 md:w-10 md:h-10  bg-white  justify-center items-center rounded transition duration-300">
-            <i className="far fa-heart"></i>
-            <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
-              5
-            </span>
-          </div>
+        
 
-          {/* Cart Icon */}
+          {/* Wishlist Icon */}
           <button
-            onClick={toggleCart}
+            onClick={toggleWish}
             className="relative w-8 h-8 md:w-10 md:h-10 flex bg-white  justify-center items-center rounded transition duration-300"
           >
-            <i className="fa fa-shopping-cart"></i>
+            <i className="far fa-heart"></i>
             <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
-              {cartCount}
+              {wishCount}
             </span>
           </button>
 
@@ -242,12 +233,44 @@ const Navbar = () => {
       {/* Side Panel */}
       <div
         ref={sidePanelRef}
-        className={`fixed z-50 top-0 left-0 w-64 md:w-80 h-full bg-orange-600 text-white transition-transform transform ${
+        className={`fixed z-50 top-0 left-0 w-64 md:w-80 h-full bg-[#EB1E39] text-white transition-transform transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-4 border-b border-white">
-          <img src="/assets/Logo.jpg" alt="Kid Fashion Logo" className="w-20" />
+          <Link to="/">
+            <div className="flex flex-col font-neucha items-center md:px-3 -space-y-3 text-white">
+              {/* First Row */}
+              <div className=" md:text-xl font-semibold flex rotate-[3deg] tracking-widest ">
+                <p>Azmain</p>
+              </div>
+
+              {/* Second Row */}
+              <div className="text-3xl md:text-5xl tracking-tight  font-sans font-bold flex ">
+                {[
+                  { letter: "K", rotation: -25 },
+                  { letter: "i", rotation: 0 },
+                  { letter: "D", rotation: 10 },
+                  { letter: "S", rotation: 16 },
+                ].map(({ letter, rotation }, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      display: "inline-block",
+                    }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+              </div>
+
+              {/* Third Row */}
+              <div className=" md:text-xl pt-1 font-semibold flex rotate-[4deg] tracking-widest ">
+                <p>Mart</p>
+              </div>
+            </div>
+          </Link>{" "}
           <button onClick={toggleMenu} className="text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -293,8 +316,8 @@ const Navbar = () => {
         </div>
       </div>
       {/* Cart Content */}
-      <div ref={cartRef}>
-        <AddToCart isCartOpen={isCartOpen} toggleCart={toggleCart} />
+      <div ref={wishRef}>
+        <Wishlist isWishOpen={isWishOpen} toggleWish={toggleWish} />
       </div>{" "}
     </div>
   );

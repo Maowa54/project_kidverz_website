@@ -39,7 +39,7 @@ const Footer = () => {
                   <a
                     href={`https://www.${Icon.name.toLowerCase()}.com`}
                     aria-label={Icon.name}
-                    className="flex items-center justify-center size-8 md:size-9 rounded-full bg-[#F65E17] text-white group-hover:bg-[#41C2CB] transition duration-300 ease-in-out"
+                    className="flex items-center justify-center size-8 md:size-9 rounded-full bg-[#EB1E39] text-white group-hover:bg-[#41C2CB] transition duration-300 ease-in-out"
                   >
                     <Icon />
                   </a>

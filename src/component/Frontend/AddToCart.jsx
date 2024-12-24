@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const AddToCart = ({ isCartOpen, toggleCart }) => {
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+
+const AddToCart = ({ isCartOpen, toggleCart, productId }) => {
   const {
     cart,
 
@@ -14,15 +17,20 @@ const AddToCart = ({ isCartOpen, toggleCart }) => {
 
   return (
     <div
-      className={`fixed top-0 right-0 z-50 w-80 h-full bg-white shadow-lg transition-transform ${
+      className={`fixed top-0 right-0 z-50 w-96 h-full bg-white shadow-lg transition-transform ${
         isCartOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
       <div className="p-4 flex justify-between items-center border-b">
-        <h2 className="text-2xl font-bold">Your cart</h2>
+        <h2 className="text-2xl  font-bold">
+          <span>
+            <i className="fas fa-shopping-cart me-1"></i>
+          </span>{" "}
+          Your cart{" "}
+        </h2>
         <button
           onClick={toggleCart}
-          className="text-gray-500 hover:text-gray-800"
+          className="text-gray-500 text-lg md:text-xl  hover:text-gray-800"
         >
           &times;
         </button>
@@ -36,44 +44,46 @@ const AddToCart = ({ isCartOpen, toggleCart }) => {
               className="size-20 object-cover mr-4"
             />
             <div className="flex-1">
-              <h3 className="text-orange-600 font-semibold">{product.name}</h3>
-              <p className="text-lg text-sky-600">
-                ${product.price.toFixed(2)}
-              </p>
-              <div className="flex text-lg items-center mt-2">
-                <button
-                  onClick={() => handleDecreaseQuantity(product.id)}
-                  className="size-6 text-gray-800"
-                >
-                  -
-                </button>
-                <span className="size-8 border bg-gray-100 flex justify-center items-center">
-                {product.quantity}
-
+              <h3 className="md:text-lg text-[#ED1D38] font-semibold">
+                {product.name}
+                <span className="text-gray-600 text-base ml-2">
+                  ({product.variation_values || ""})
                 </span>
-                <button
-                  onClick={() => handleIncreaseQuantity(product.id)}
-                  className="size-6 text-gray-800"
-                >
-                  +
-                </button>
+              </h3>
+
+              <div className="flex justify-between">
+                <p className="  font-semibold text-gray-800">
+                  ৳{product.unitPrice}
+                </p>
+                <p>X</p>
+                <div className="flex   ">
+                  <button
+                    onClick={() => handleDecreaseQuantity(product.id)}
+                    className="size-6 p-1 flex justify-center items-center border text-gray-800"
+                  >
+                    -
+                  </button>
+                  <span className="size-6 text-sm md:text-base  border flex justify-center items-center">
+                    {product.quantity}
+                  </span>
+                  <button
+                    onClick={() => handleIncreaseQuantity(product.id)}
+                    className="size-6 flex justify-center items-center p-1 border text-gray-800"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-between mt-1">
+                <p className="  font-semibold text-[#3B82F6]">
+                  ৳{product.unitPrice * product.quantity}
+                </p>
                 <button
                   onClick={() => removeFromCart(product.id)}
-                  className=" ms-auto text-gray-500 hover:text-red-600"
+                  className=" ms-auto text-red-600 hover:text-red-800"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M3 6h18M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 6l1 14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l1-14H4z" />
-                  </svg>
+                  <RiDeleteBin6Line className=" md:text-lg" />
                 </button>
               </div>
             </div>
@@ -81,18 +91,25 @@ const AddToCart = ({ isCartOpen, toggleCart }) => {
         ))}
       </div>
       <div className="p-4 border-t">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-lg font-bold">Subtotal</span>
-          <span className="text-lg font-bold">$</span>
+        <div className="flex justify-between items-center text-lg md:text-xl text-[#16A951] mb-4">
+          <span className=" font-bold">Subtotal</span>
+          <span className="t font-bold">
+            {" "}
+            ৳ {cart.reduce((acc, product) => acc + product.price, 0)}
+          </span>
         </div>
-        <Link to="checkout" className="flex ">
-          {" "}
-          <button
-            onClick={toggleCart}
-            className="flex-1 bg-orange-600 text-white py-2 rounded"
-          >
-            Checkout
-          </button>
+        <Link
+          onClick={toggleCart}
+          to="/checkout"
+          className="mt-4 text-center font-semibold py-3 rounded-md bg-[#ED1D38] hover:bg-[#e0344b] text-white flex gap-3 justify-center items-center  text-lg md:text-xl"
+        >
+          Check Out
+          <span className="animate-icon ">
+            <MdKeyboardDoubleArrowRight
+              color="white"
+              className="text-2xl md:text-3xl"
+            />
+          </span>
         </Link>
       </div>
     </div>
