@@ -8,6 +8,9 @@ import Checkout from "./pages/FrontendPages/Checkout";
 import axios from "axios";
 import ScrollToTop from "./component/Frontend/ScrollToTop";
 import AllProduct from "./pages/FrontendPages/AllProduct";
+import ThankYouPage from "./pages/FrontendPages/ThankYouPage";
+import Shop from "./pages/FrontendPages/Shop";
+import Collection from "./pages/FrontendPages/Collection";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -43,7 +46,6 @@ const App = () => {
     <div>
       <Router>
         <ScrollToTop /> {/* Add ScrollToTop component here */}
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home products={products} />} />
           <Route
@@ -52,6 +54,10 @@ const App = () => {
           />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/allproduct/:age" element={<AllProduct products={products} />} />
+          <Route path="/thankyou/:order_id" element={<ThankYouPage />} />
+          <Route path="/shop" element={<Shop products={products} />} />
+          <Route path="/collection" element={<Collection products={products} />} />
+
 
 
         </Routes>

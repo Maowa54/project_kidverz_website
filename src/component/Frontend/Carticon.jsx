@@ -53,7 +53,7 @@ const Carticon = () => {
       {/* Cart Icon */}
       <button
         onClick={toggleCart}
-        className="fixed top-1/2 right-4 transform -translate-y-1/2 w-12 h-12 md:w-10 md:h-10 flex text-white bg-rose-600 justify-center items-center rounded  shadow-lg transition duration-300 z-30"
+        className="fixed top-1/2 right-4 transform -translate-y-1/2 w-10 h-10 flex text-white bg-rose-600 justify-center items-center rounded  shadow-lg transition duration-300 z-40"
       >
         <i className="fa fa-shopping-cart text-lg md:text-xl"></i>
         <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs md:text-sm w-5 h-5 md:w-6 md:h-6 flex justify-center items-center rounded-full">

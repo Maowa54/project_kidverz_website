@@ -52,7 +52,7 @@ const Section7 = () => {
 
   return (
     <div>
-      <div className="bg-orange-100 font-semibold tracking-wider text-orange-500 md:text-lg my-4 md:my-8 p-4">
+      <div className="bg-rose-100 font-semibold tracking-wider text-rose-500 md:text-lg my-4 md:my-8 p-4">
         <div className="scrolling-container">
           <div className="scrolling-text-wrapper reverse">
             <div className="scrolling-text">
@@ -67,7 +67,7 @@ const Section7 = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 px-4 md:px-12 md:py-4 gap-4">
         <div>
-          <p className="text-orange-500 font-bold md:text-lg my-2">New</p>
+          <p className="text-rose-500 font-bold md:text-lg my-2">New</p>
           <p className="text-2xl md:text-3xl lg:text-5xl font-semibold text-gray-800">
             Get 20% Off on Summer Sale Items{" "}
           </p>
@@ -81,7 +81,7 @@ const Section7 = () => {
             blending comfort with the latest trends to ensure your little ones
             not only look their best but also feel their best.
           </p>
-          <button className="py-2 mt-4 px-6 textlg lg:text-xl font-medium text-white bg-orange-500 hover:bg-indigo-400">
+          <button className="py-2 mt-4 px-6 textlg lg:text-xl font-medium text-white bg-rose-500 hover:bg-indigo-400">
             See Details
           </button>
         </div>
@@ -126,7 +126,7 @@ const Section7 = () => {
         </div>
       </div>
 
-      <div className="bg-orange-100 font-semibold tracking-wider text-orange-500 md:text-lg mt-6 md:mt-8 p-4">
+      <div className="bg-rose-100 font-semibold tracking-wider text-rose-500 md:text-lg mt-6 md:mt-8 p-4">
         <div className="scrolling-container">
           <div className="scrolling-text-wrapper normal">
             <div className="scrolling-text">

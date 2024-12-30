@@ -6,6 +6,7 @@ import Section3 from "../../component/Frontend/Home/Section3";
 import Section5 from "../../component/Frontend/Home/Section5";
 import Section6 from "../../component/Frontend/Home/Section6";
 import Section7 from "../../component/Frontend/Home/Section7";
+import Navbar from "../../component/Frontend/Navbar";
 
 const Home = ({products}) => {
 
@@ -15,6 +16,8 @@ const Home = ({products}) => {
   
   return (
     <div className="overflow-hidden ">
+              <Navbar />
+
         <Carticon />
       {/* First Section */}
       <Section1 products={products}/>

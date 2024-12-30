@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../../Frontend/CartContext";
 import { WishContext } from "../../Frontend/WishContext";
 import { BsArrowUpSquare } from "react-icons/bs";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Section6 = ({ products = [] }) => {
   const [visibleProducts, setVisibleProducts] = useState(0); // Starting index of visible products
@@ -13,6 +14,7 @@ const Section6 = ({ products = [] }) => {
   const { addToWishlist } = useContext(WishContext);
   const [modalOpen, setModalOpen] = useState(false);
   const { cartCount } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -96,7 +98,7 @@ const Section6 = ({ products = [] }) => {
   const [imageFly, setImageFly] = useState(false);
 
   // Add to Cart Handler
-  const handleAddToCart = (e) => {
+  const handleAddToCart = (e, isBuyNow = false) => {
     e.preventDefault();
 
     if (product?.has_variation === 1) {
@@ -105,6 +107,7 @@ const Section6 = ({ products = [] }) => {
         Object.keys(product.product_variation).length
       ) {
         setIsToastVisible(true); // Show toast if variations are incomplete
+        return; // Stop further execution
       } else {
         setIsToastVisible(false);
         setImageFly(false); // Reset animation
@@ -115,6 +118,11 @@ const Section6 = ({ products = [] }) => {
       setImageFly(false); // Reset animation
       requestAnimationFrame(() => setImageFly(true)); // Trigger animation
       addToCart(product, quantity, currentId, currentVariation, currentPrice);
+    }
+
+    // Navigate to checkout if "Buy Now" button is clicked
+    if (isBuyNow) {
+      navigate("/checkout");
     }
   };
 
@@ -272,17 +280,34 @@ const Section6 = ({ products = [] }) => {
 
             const highPrice = Math.max(...prices); // Get maximum price
             const lowPrice = Math.min(...prices); // Get minimum price
+            // Check if product is new
+            const isProductNew = (createdAt) => {
+              const currentDate = new Date();
+              const createdDate = new Date(createdAt);
+              const timeDifference = currentDate - createdDate;
+              const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert ms to days
+              return daysDifference <= 7; // If the product was created in the last 7 days
+            };
+
+            const newProduct = isProductNew(product.created_at);
+
+            const cartTooltipId = `cart-tooltip-${product.id}`;
+            const wishlistTooltipId = `wishlist-tooltip-${product.id}`;
+            const viewTooltipId = `view-tooltip-${product.id}`;
+
             return (
               <div
                 key={product.id}
                 className="border shadow flex flex-col group relative"
               >
                 <div className="bg-gray-100 relative">
-                  <img
-                    src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                    alt={product.offer}
-                    className="w-full h-96"
-                  />
+                  <Link to={`/singleproduct/${product.name}-${product.id}`}>
+                    <img
+                      src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                      alt={product.name}
+                      className="w-full h-96"
+                    />
+                  </Link>
 
                   <div className="absolute right-1 top-2 px-1 bg-gray-200 flex items-center">
                     {/* Stars */}
@@ -301,39 +326,66 @@ const Section6 = ({ products = [] }) => {
                       ({product.rating})
                     </span>
                   </div>
-                  {/* Icons */}
-                  <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                    {[
-                      {
-                        icon: "fas fa-shopping-cart",
-                        onClick: () => openModal(product),
-                      },
-                      {
-                        icon: "far fa-heart",
-                        onClick: () => addToWishlist(product),
-                      },
 
-                      {
-                        icon: "far fa-eye",
-                        link: `/singleproduct/${product.name}-${product.id}`,
-                      },
-                      { icon: "fa fa-exchange-alt" },
-                    ].map(({ icon, onClick, link }, index) => (
-                      <div
-                        key={index}
-                        className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
-                      >
-                        {link ? (
-                          <Link to={link}>
-                            <i className={`text-white ${icon}`}></i>
-                          </Link>
-                        ) : (
-                          <button onClick={onClick}>
-                            <i className={`text-white ${icon}`}></i>
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                  {/* New Product Badge */}
+                  {newProduct && (
+                    <div className="absolute top-2 left-2 bg-yellow-500 starburst flex justify-center items-center text-white  px-2 py-1 rounded">
+                      New
+                    </div>
+                  )}
+                  {/* Icons */}
+
+                  <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
+                    <button
+                      data-tooltip-id={cartTooltipId}
+                      onClick={() => openModal(product)}
+                      className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                    >
+                      <i className="text-white fas fa-shopping-cart"></i>
+                    </button>
+                    <ReactTooltip
+                      id={cartTooltipId}
+                      place="top"
+                      content="Add to Cart"
+                      style={{
+                        fontSize: "12px", // Adjust text size
+                        padding: "6px 8px", // Adjust padding
+                      }}
+                    />
+
+                    <button
+                      data-tooltip-id={wishlistTooltipId}
+                      onClick={() => addToWishlist(product)}
+                      className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                    >
+                      <i className="text-white far fa-heart"></i>
+                    </button>
+                    <ReactTooltip
+                      id={wishlistTooltipId}
+                      place="top"
+                      content="Add to Wishlist"
+                      style={{
+                        fontSize: "12px", // Adjust text size
+                        padding: "6px 8px", // Adjust padding
+                      }}
+                    />
+
+                    <Link
+                      data-tooltip-id={viewTooltipId}
+                      to={`/singleproduct/${product.name}-${product.id}`}
+                      className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                    >
+                      <i className="text-white far fa-eye"></i>
+                    </Link>
+                    <ReactTooltip
+                      id={viewTooltipId}
+                      place="top"
+                      content="View Details"
+                      style={{
+                        fontSize: "12px", // Adjust text size
+                        padding: "6px 8px", // Adjust padding
+                      }}
+                    />
                   </div>
                 </div>
 
@@ -379,20 +431,6 @@ const Section6 = ({ products = [] }) => {
                       </div>
                     )}
                   </p>
-                  <div className="mt-1 md:mt-2 flex gap-2">
-                    {["red", "yellow", "purple", "green", "blue"].map(
-                      (color) => (
-                        <button
-                          key={color}
-                          className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                        >
-                          <div
-                            className={`bg-${color}-500 rounded-full w-4 h-4`}
-                          ></div>
-                        </button>
-                      )
-                    )}
-                  </div>
                 </div>
               </div>
             );
@@ -411,13 +449,11 @@ const Section6 = ({ products = [] }) => {
                 >
                   <div className="grid grid-cols-2 md:grid-cols-3 justify-center items-center gap-3">
                     <div className="">
-                      <Link to={`/singleproduct/${product.name}-${product.id}`}>
-                        <img
-                          src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                          alt={product.name}
-                          className="w-full h-auto rounded-lg"
-                        />
-                      </Link>
+                      <img
+                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                        alt={product.name}
+                        className="w-full h-auto rounded-lg"
+                      />
 
                       <img
                         src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
@@ -597,17 +633,19 @@ const Section6 = ({ products = [] }) => {
                   <div className="grid grid-cols-2 gap-3 text-center mt-2 sm:mt-5">
                     <button
                       className=" bg-rose-600 py-2 w-full text-white rounded-lg flex items-center justify-center"
-                      onClick={handleAddToCart}
+                      onClick={(e) => handleAddToCart(e, false)} // isBuyNow = false
                     >
                       {/* <FaTimesCircle className="md:mr-2" size={24} /> <span>ক্যান্সেল করুন</span> */}
                       Add To Cart
                     </button>
-                    <button
-                      className=" bg-[#31a0d4] py-2 w-full text-white rounded-lg"
-                      onClick={handleAddToCart}
+                    <Link
+                      className="/checkout"
+                      onClick={(e) => handleAddToCart(e, true)} // isBuyNow = true
                     >
-                      Buy Now{" "}
-                    </button>
+                      <button className=" bg-[#31a0d4] py-2 w-full text-white rounded-lg">
+                        Buy Now{" "}
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

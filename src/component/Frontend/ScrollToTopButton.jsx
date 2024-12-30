@@ -26,7 +26,7 @@ const ScrollToTopButton = () => {
   return (
     scrollProgress > 0 && (
       <div
-        className="fixed bottom-14 right-8 w-12 h-12 flex items-center group justify-center z-40 cursor-pointer transition-opacity duration-300"
+        className="fixed bottom-24 right-8 w-12 h-12 flex items-center group justify-center z-40 cursor-pointer transition-opacity duration-300"
         onClick={scrollToTop}
       >
         <svg width="48" height="48" className="absolute fill-transparent group-hover:fill-pink-600">

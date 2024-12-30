@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import { TbShoppingCartCopy } from "react-icons/tb";
+import { useState, useContext } from "react";
 // import CheckOutOrder from "../../../Component/Frontend/CheckOutOrder";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import Header from "../../../Component/Frontend/Header";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { CartContext } from "../../component/Frontend/CartContext";
 import { ImSpinner10 } from "react-icons/im";
+import CustomSelect from "../../component/Frontend/Checkout/CustomSelect";
+import Carticon from "../../component/Frontend/Carticon";
+import Navbar from "../../component/Frontend/Navbar";
 const Checkout = () => {
   const navigate = useNavigate();
 
-  const { cart, totalPrice } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
-  const cod_amount = cart.reduce((acc, product) => acc + product.price, 0);
   // console.log(ttt)
   const [errors, setErrors] = useState({});
 
@@ -22,42 +22,39 @@ const Checkout = () => {
 
   const [note, setNote] = useState("");
 
-  const [productIds, setProductIds] = useState("");
-
-  const [productQty, setProductQty] = useState("");
-
   const [loading, setLoading] = useState(false);
 
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  const handleDeliveryChange = (e) => {
+    const charge = e.target.value === "insideDhaka" ? 80 : 130;
+    setDeliveryCharge(charge);
+  };
   // console.log(name);
 
   // console.log(phone);
   // console.log(address);
   // console.log(codAmount);
 
-  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const totalPrice = cart.reduce((acc, product) => {
+    const count = product.quantity ?? 1;
+    const discountedPrice = product.price - (product.discount_amount ?? 0);
+    return acc + discountedPrice * count; // Accumulate discounted total
+  }, 0);
+
+  const totalAmountWithDelivery =
+    cart.reduce((acc, product) => {
+      const count = product.quantity ?? 1;
+      const discountedPrice = product.price - (product.discount_amount ?? 0);
+      return acc + discountedPrice * count;
+    }, 0) + deliveryCharge;
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  // Size Selection state
-  const [selectedSize, setSelectedSize] = useState(null);
-
   // Delivery Charge Logic Start
-  const [deliveryFee, setDeliveryFee] = useState(0);
-
-  const handleDeliveryChange = (event) => {
-    const selectedValue = event.target.value;
-    if (selectedValue === "inside-dhaka") {
-      setDeliveryFee(80);
-    } else if (selectedValue === "outside-dhaka") {
-      setDeliveryFee(150);
-    } else {
-      setDeliveryFee(0);
-    }
-  };
 
   // Delivery Charge Logic End
-
-  const total = totalPrice + deliveryFee;
 
   const closePopup = () => {
     // Hide the popup
@@ -76,6 +73,28 @@ const Checkout = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
+    // Perform field validation before submitting
+    const newErrors = {};
+
+    // Check if required fields are filled
+    if (!name) newErrors.name = ["Name is required."];
+    if (!phone) newErrors.phone = ["Phone number is required."];
+    if (!address) newErrors.address = ["Address is required."];
+    if (!deliveryCharge)
+      newErrors.deliveryCharge = ["Please select a delivery charge option."];
+    if (!paymentMethod) {
+      newErrors.paymentMethod = "Payment method is required.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      // If there are errors, set them and stop submission
+      setErrors(newErrors);
+      return;
+    }
+
+    // Clear previous errors if validation passed
+    setErrors({});
+
     const formData = new FormData();
 
     formData.append("client_id", 15);
@@ -83,9 +102,6 @@ const Checkout = () => {
       "product_ids",
       cart.map((product) => product.id)
     );
-    // formData.append( "s_product_qty", cart.map((product) => product.quantity));
-    // formData.append( "v_product_qty", cart.map((product) => product.quantity));
-
     formData.append(
       "s_product_qty",
       sProductQty.length > 0 ? sProductQty : null
@@ -100,13 +116,13 @@ const Checkout = () => {
     formData.append("note", note);
 
     formData.append("address", address);
-    formData.append("delivery_charge", deliveryFee);
-    formData.append("cod_amount", total);
+    formData.append("delivery_charge", deliveryCharge);
+    formData.append("cod_amount", totalAmountWithDelivery);
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://admin.ezicalc.com/api/public/order/create",
@@ -114,10 +130,7 @@ const Checkout = () => {
         {}
       );
 
-      console.log(response);
       if (response.data.status) {
-        console.log(response.data.data.id);
-
         // Reset form fields
         setName("");
         setPhone("");
@@ -129,19 +142,9 @@ const Checkout = () => {
         localStorage.removeItem("cart");
 
         navigate(`/thankyou/${response.data.data.id}`);
-      }
-
-      //  else if (response.data.type === 'invalid') {
-      //     toast.error(response.data.message);
-      //   }
-      else {
-        const newErrors = response.data.error || {};
-
-        console.log(newErrors);
-        setErrors(newErrors);
-        // handleErrors(newErrors);
-
-        // toast.error(Object.keys(response.data.error).map((field) => ` ${response.data.error[field][0]}`));
+      } else {
+        const responseErrors = response.data.error || {};
+        setErrors(responseErrors);
       }
     } catch (error) {
       console.error(
@@ -154,19 +157,21 @@ const Checkout = () => {
   };
 
   return (
-    <div className="mt-6 overflow-hidden">
-      <div className="px-4 lg:px-0 container mx-auto">
+    <div className=" overflow-hidden">
+      <Navbar />
+      <Carticon />
+      <div className="px-4 lg:px-0 mt-6 container mx-auto">
         {/* Grid Layout */}
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left Column - 8 columns wide */}
-          <div className="">
+          <div className="hidden md:block">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b">
-                  <th className="text-teal-600 px-2 py-3 font-semibold text-xl text-left">
+                  <th className="text-rose-600 px-2 py-3 font-semibold text-xl text-left">
                     Your Products
                   </th>
-                  <th className="text-teal-600 px-2 py-3 font-semibold text-xl text-right">
+                  <th className="text-rose-600 px-2 py-3 font-semibold text-xl text-right">
                     Subtotal
                   </th>
                 </tr>
@@ -215,9 +220,9 @@ const Checkout = () => {
           </div>
 
           <form onSubmit={handleSave} className="">
-            <div className=" border bg-orange-50 py-4 px-6 space-y-4 shadow-md rounded">
+            <div className=" border bg-rose-50 py-4 px-6 space-y-4 shadow-md rounded">
               {/* Title */}
-              <h2 className="text-2xl font-semibold mb-4 text-orange-700">
+              <h2 className="text-2xl font-semibold mb-4 text-rose-600">
                 Order Details
               </h2>
 
@@ -228,7 +233,7 @@ const Checkout = () => {
                   htmlFor="name"
                   className="block font-semibold text-lg text-gray-800"
                 >
-                  <i className="fas fa-user mr-2 text-orange-500"></i>Name
+                  <i className="fas fa-user mr-2 text-rose-500"></i>Name
                 </label>
                 <input
                   value={name}
@@ -236,7 +241,7 @@ const Checkout = () => {
                   type="text"
                   id="customerName"
                   placeholder="Enter Your Name"
-                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-orange-400"
+                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-rose-400"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm">{errors.name[0]}</p>
@@ -249,7 +254,7 @@ const Checkout = () => {
                   htmlFor="phone"
                   className="block font-semibold text-lg text-gray-800"
                 >
-                  <i className="fas fa-phone mr-2 text-orange-500"></i>Phone
+                  <i className="fas fa-phone mr-2 text-rose-500"></i>Phone
                   Number
                 </label>
                 <input
@@ -258,10 +263,10 @@ const Checkout = () => {
                   type="tel"
                   id="phoneNumber"
                   placeholder="Enter Your Phone Number"
-                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-orange-400"
+                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-rose-400"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm">{errors.name[0]}</p>
+                {errors.phone && (
+                  <p className="text-red-500 text-sm">{errors.phone[0]}</p>
                 )}
               </div>
 
@@ -271,7 +276,7 @@ const Checkout = () => {
                   htmlFor="address"
                   className="block font-semibold text-lg text-gray-800"
                 >
-                  <i className="fas fa-map-marker-alt mr-2 text-orange-500"></i>
+                  <i className="fas fa-map-marker-alt mr-2 text-rose-500"></i>
                   Delivery Address
                 </label>
                 <textarea
@@ -280,7 +285,7 @@ const Checkout = () => {
                   id="address"
                   rows="4"
                   placeholder="Enter Your Delivery Address"
-                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-orange-400"
+                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-rose-400"
                 ></textarea>
                 {errors.address && (
                   <p className="text-red-500 text-sm">{errors.address[0]}</p>
@@ -290,15 +295,15 @@ const Checkout = () => {
               {/* Delivery Fee Options */}
               <div>
                 <p className="block font-semibold text-lg text-gray-800 mb-2">
-                  <i className="fas fa-truck mr-2 text-orange-500"></i>Delivery
+                  <i className="fas fa-truck mr-2 text-rose-500"></i>Delivery
                   Fee
                 </p>
                 <div className="flex flex-col md:flex-row space-x-0 space-y-2 md:space-y-0 md:space-x-4">
                   {/* Inside Dhaka Option */}
-                  <label className="flex items-center text-gray-800 ">
+                  <label className="flex items-center text-gray-800">
                     <input
                       type="radio"
-                      className="form-radio required mr-2 accent-orange-500"
+                      className="form-radio required mr-2 accent-rose-500"
                       name="deliveryCharge"
                       value="insideDhaka"
                       required
@@ -311,14 +316,39 @@ const Checkout = () => {
                   <label className="flex items-center text-gray-800">
                     <input
                       type="radio"
-                      className="form-radio required mr-2 accent-orange-500"
+                      className="form-radio required mr-2 accent-rose-500"
                       name="deliveryCharge"
                       value="outsideDhaka"
                       required
                       onChange={handleDeliveryChange}
                     />
-                    Outside Dhaka (150 TK)
+                    Outside Dhaka (130 TK)
                   </label>
+                </div>
+
+                {/* Display error message for delivery charge */}
+                {errors.deliveryCharge && (
+                  <p className="text-red-500 text-sm">
+                    {errors.deliveryCharge[0]}
+                  </p>
+                )}
+              </div>
+
+              {/* Payment Method */}
+
+              <div className="mb-2">
+                <label
+                  className="block font-semibold text-lg text-gray-800"
+                  htmlFor="paymentMethod"
+                >
+                  <i className="fas fa-wallet mr-2 text-rose-500"></i>
+                  Payment Method
+                </label>
+                <div className="flex items-center gap-3 mt-2  p-4 border bg-white border-gray-300 rounded-lg">
+                  <div className="flex items-center justify-center w-5 h-5 text-xs rounded-full bg-green-500">
+                    <i className="fas fa-check text-white"></i>
+                  </div>
+                  <p className="text-gray-700 font-medium">Cash on Delivery</p>
                 </div>
               </div>
 
@@ -328,7 +358,7 @@ const Checkout = () => {
                   htmlFor="orderNote"
                   className="block font-semibold text-lg text-gray-800"
                 >
-                  <i className="fas fa-sticky-note mr-2 text-orange-500"></i>
+                  <i className="fas fa-sticky-note mr-2 text-rose-500"></i>
                   Order Note
                 </label>
                 <textarea
@@ -337,25 +367,39 @@ const Checkout = () => {
                   id="note"
                   rows="3"
                   placeholder="Enter Your Note (if any)"
-                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-orange-400"
+                  className="mt-2 block w-full rounded-md border border-gray-300 shadow-sm p-3 focus:ring-2 focus:ring-rose-400"
                 ></textarea>
               </div>
               {/* Order Summary Section */}
               <div className="mt-6 border-t pt-4">
-                <h2 className="text-2xl font-semibold mb-4 text-orange-700">
+                <h2 className="text-2xl font-semibold mb-4 text-rose-600">
                   Order Summary
                 </h2>
+
+                <div className="mb-2 block md:hidden ">
+                  {cart.map((product) => (
+                    <div
+                      key={product.id}
+                      className="flex font-medium justify-between mb-2"
+                    >
+                      <p className="flex gap-2">
+                        {product.name} <span>X {product.quantity}</span>
+                      </p>
+                      <p className="font-medium">{product.price}৳</p>
+                    </div>
+                  ))}
+                </div>
 
                 {/* Subtotal */}
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">৳{cod_amount}</span>
+                  <span className="font-medium"> ৳{totalPrice}</span>
                 </div>
 
                 {/* Delivery Charge */}
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-gray-600">Delivery Charge</span>
-                  <span className="font-medium">৳{deliveryFee}</span>
+                  <span className="font-medium">৳{deliveryCharge}</span>
                 </div>
 
                 {/* Total */}
@@ -363,8 +407,8 @@ const Checkout = () => {
                   <span className="text-gray-800 md:text-lg font-semibold">
                     Total
                   </span>
-                  <span className="text-xl font-bold text-orange-600">
-                    ৳{total}{" "}
+                  <span className="text-xl font-bold text-rose-500">
+                    ৳{totalAmountWithDelivery}
                   </span>
                 </div>
               </div>
@@ -374,7 +418,7 @@ const Checkout = () => {
                 disabled={loading} // Disable button while loading
                 onClick={handleSave}
                 type="submit"
-                className="w-full bg-orange-600 text-white py-3 px-4 rounded-lg shadow-lg hover:bg-orange-700 transition-all duration-200"
+                className="w-full bg-rose-500 text-white py-3 px-4 rounded-lg shadow-lg hover:bg-rose-700 transition-all duration-200"
               >
                 {loading ? (
                   <div className="flex justify-center w-full">
@@ -393,6 +437,34 @@ const Checkout = () => {
             </div>
           </form>
         </div>
+      </div>
+      <div
+        className="gap-2 mx-auto  md:hidden fixed flex flex-col items-center justify-center bottom-0 w-full bg-gradient-to-t from-gray-50 to-white shadow-lg z-30 
+       px-6 py-4"
+      >
+        <p className="flex justify-between text-lg md:text-xl font-semibold ">
+          <span>Total Amount:</span>
+          <span className="text-sky-600">৳{totalAmountWithDelivery}</span>
+        </p>
+
+        <button
+          type="submit"
+          className="block mx-auto md:hidden  bg-rose-500 text-white font-semibold py-2 px-6 text-lg rounded-full w-full"
+          disabled={loading} // Disable button while loading
+          onClick={handleSave}
+        >
+          {loading ? (
+            <div className="flex justify-center w-full">
+              <ImSpinner10 className="animate-spin text-white" size={20} />
+              <span className="px-2">Processing...</span>
+            </div>
+          ) : (
+            <>
+              <span className="me-2">Place Order</span>
+              <i className="fas fa-shopping-bag text-white text-lg animate-bounce"></i>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

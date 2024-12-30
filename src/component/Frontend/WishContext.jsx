@@ -6,23 +6,25 @@ export const WishContext = createContext();
 
 export const WishProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
-  const [wishCount, setWishCount] = useState(0);  // State for the wishlist count
 
   useEffect(() => {
-    // Initialize wishlist from localStorage
-    const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(existingWishlist);
-    setWishCount(existingWishlist.length);  // Set initial wishCount
+    try {
+      const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      setWishlist(existingWishlist);
+    } catch (error) {
+      console.error("Failed to parse wishlist from localStorage", error);
+      setWishlist([]);
+    }
   }, []);
 
   const addToWishlist = (product) => {
-    const existingProductIndex = wishlist.findIndex((item) => item.id === product.id);
-  
-    if (existingProductIndex === -1) {
+    const exists = wishlist.some((item) => item.id === product.id);
+
+    if (!exists) {
       const updatedWishlist = [...wishlist, product];
       setWishlist(updatedWishlist);
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-  
+
       toast.success("Added to Wishlist!", {
         position: "top-right",
         duration: 1000,
@@ -40,9 +42,6 @@ export const WishProvider = ({ children }) => {
       });
     }
   };
-  
-  
-  
 
   const removeFromWishlist = (productId) => {
     Swal.fire({
@@ -56,7 +55,6 @@ export const WishProvider = ({ children }) => {
       if (result.isConfirmed) {
         const updatedWishlist = wishlist.filter((product) => product.id !== productId);
         setWishlist(updatedWishlist);
-        setWishCount(updatedWishlist.length);  // Update wishCount after removal
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
         toast.success("Product Removed from Wishlist!", {
@@ -71,7 +69,7 @@ export const WishProvider = ({ children }) => {
     <WishContext.Provider
       value={{
         wishlist,
-        wishCount,  // Provide wishCount to context consumers
+        wishCount: wishlist.length, // Derived dynamically from wishlist
         addToWishlist,
         removeFromWishlist,
       }}

@@ -7,11 +7,12 @@ import {
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [isEducationalKitsOpen, setEducationalKitsOpen] = useState(false);
-  const [isPaperNotebooksOpen, setPaperNotebooksOpen] = useState(false);
-  const [isOrigamiToolsOpen, setOrigamiToolsOpen] = useState(false);
+  const [isCategoriesOpen, setCategoriesOpen] = useState(false);
+  const [isCustomerServiceOpen, setCustomerServiceOpen] = useState(false);
+  const [isFollowUsOpen, setFollowUsOpen] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -20,14 +21,14 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className="bg-[#FDEAE1] mt-8 p-8 md:p-16">
+    <div>
+          <div className="bg-[#FDEAE1] mt-8 p-8 md:p-16">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
         {/* Logo and Social Links */}
-        <div className="flex flex-col ">
-          <img src="/assets/Logo-removebg-preview.png" alt="Logo" className="w-20 md:w-32" />
-          <p className="text-gray-600 mt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div className="flex flex-col">
+        <Link to="/">  <img src="/assets/Logo2.png" alt="Logo" className="w-20 md:w-28" /></Link>
+          <p className="text-gray-600 mt-1 mr-6">
+            Dress your little ones in the most fashionable clothes for every occasion in our kids' clothing collection.
           </p>
           <div className="-ml-2 flex gap-2 mt-3">
             {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map(
@@ -50,37 +51,35 @@ const Footer = () => {
           <hr className="mt-4 md:mt-0 md:border-none border-black" />
         </div>
 
-        {/* Educational Kits */}
-        <div className="text-gray-600 ">
+        {/* Categories */}
+        <div className="text-gray-600">
           <div className="flex justify-between items-center">
-            <h1 className="text-gray-800 text-xl  font-semibold">
-              Educational Kits
+            <h1 className="text-gray-800 text-xl font-semibold">
+              Categories
             </h1>
-            {/* Show the toggle only on small screens */}
             <button
-              onClick={() => setEducationalKitsOpen(!isEducationalKitsOpen)}
+              onClick={() => setCategoriesOpen(!isCategoriesOpen)}
               className="text-[#F65E17] text-2xl sm:block md:hidden"
             >
-              {isEducationalKitsOpen ? "-" : "+"}
+              {isCategoriesOpen ? "-" : "+"}
             </button>
           </div>
-          {/* Only show list if it's open on small screens */}
           <div
             className={`${
-              isEducationalKitsOpen ? "block" : "hidden"
+              isCategoriesOpen ? "block" : "hidden"
             } sm:block md:block`}
           >
             <ul className="mt-4 space-y-3">
               {[
-                "Electronics Kits",
-                "Astronomy Kits",
-                "Microscope Kits",
-                "Math Puzzle Kits",
-                "Robotics Kits",
-              ].map((kit, idx) => (
+                "Boys Clothing",
+                "Girls Clothing",
+                "Baby Wear",
+                "New Arrivals",
+                "Sale",
+              ].map((category, idx) => (
                 <li key={idx} className="relative group cursor-pointer">
                   <span className="relative inline-block hover:text-[#F65E17]">
-                    {kit}
+                    {category}
                     <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-[#F65E17] group-hover:w-full transition-all duration-300 ease-in-out"></span>
                   </span>
                 </li>
@@ -90,37 +89,35 @@ const Footer = () => {
           <hr className="mt-4 md:mt-0 md:border-none border-black" />
         </div>
 
-        {/* Paper & Notebooks */}
+        {/* Customer Service */}
         <div className="text-gray-600">
           <div className="flex justify-between items-center">
             <h1 className="text-gray-800 text-xl font-semibold">
-              Paper & Notebooks
+              Customer Service
             </h1>
-            {/* Show the toggle only on small screens */}
             <button
-              onClick={() => setPaperNotebooksOpen(!isPaperNotebooksOpen)}
+              onClick={() => setCustomerServiceOpen(!isCustomerServiceOpen)}
               className="text-[#F65E17] text-2xl sm:block md:hidden"
             >
-              {isPaperNotebooksOpen ? "-" : "+"}
+              {isCustomerServiceOpen ? "-" : "+"}
             </button>
           </div>
-          {/* Only show list if it's open on small screens */}
           <div
             className={`${
-              isPaperNotebooksOpen ? "block" : "hidden"
+              isCustomerServiceOpen ? "block" : "hidden"
             } sm:block md:block`}
           >
             <ul className="mt-4 space-y-3">
               {[
-                "Composition Notebooks",
-                "Hardcover Sketchbooks",
-                "Scrapbooking Paper Pads",
-                "Hardcover Notebooks",
-                "Parchment Paper",
-              ].map((notebook, idx) => (
+                "Track Order",
+                "Shipping & Delivery",
+                "Returns & Exchanges",
+                "FAQs",
+                "Contact Us",
+              ].map((service, idx) => (
                 <li key={idx} className="relative group cursor-pointer">
                   <span className="relative inline-block hover:text-[#F65E17]">
-                    {notebook}
+                    {service}
                     <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-[#F65E17] group-hover:w-full transition-all duration-300 ease-in-out"></span>
                   </span>
                 </li>
@@ -130,61 +127,89 @@ const Footer = () => {
           <hr className="mt-4 md:mt-0 md:border-none border-black" />
         </div>
 
-        {/* Origami Tools */}
+        {/* Follow Us */}
         <div className="text-gray-600">
           <div className="flex justify-between items-center">
             <h1 className="text-gray-800 text-xl font-semibold">
-              Origami Tools
+              Follow Us
             </h1>
-            {/* Show the toggle only on small screens */}
             <button
-              onClick={() => setOrigamiToolsOpen(!isOrigamiToolsOpen)}
+              onClick={() => setFollowUsOpen(!isFollowUsOpen)}
               className="text-[#F65E17] text-2xl sm:block md:hidden"
             >
-              {isOrigamiToolsOpen ? "-" : "+"}
+              {isFollowUsOpen ? "-" : "+"}
             </button>
           </div>
-          {/* Only show list if it's open on small screens */}
           <div
             className={`${
-              isOrigamiToolsOpen ? "block" : "hidden"
+              isFollowUsOpen ? "block" : "hidden"
             } sm:block md:block`}
           >
             <ul className="mt-4 space-y-3">
-              {["About Us", "Contact", "News", "Compare", "Wishlist"].map(
-                (item, idx) => (
-                  <li key={idx} className="relative group cursor-pointer">
-                    <span className="relative inline-block hover:text-[#F65E17]">
-                      {item}
-                      <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-[#F65E17] group-hover:w-full transition-all duration-300 ease-in-out"></span>
-                    </span>
-                  </li>
-                )
-              )}
+              {[
+                "Instagram",
+                "Facebook",
+                "Twitter",
+                "Pinterest",
+              ].map((platform, idx) => (
+                <li key={idx} className="relative group cursor-pointer">
+                  <span className="relative inline-block hover:text-[#F65E17]">
+                    {platform}
+                    <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-[#F65E17] group-hover:w-full transition-all duration-300 ease-in-out"></span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
-      <div className="hidden md:flex justify-between">
+
+      {/* Copyright & Logos */}
+      <div className="hidden md:flex justify-between mt-6">
         <div data-aos="fade-right">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/copyright-image-01.png?v=1697103126"
-            alt=""
+            src="/assets/footer-3.png"
+            alt="Copyright"
+            className="w-40 mt-4"
+
           />
         </div>
         <div data-aos="fade-up">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/copyright-image-02.png?v=1697103126&width=420"
-            alt=""
+            src="/assets/footer-2.png"
+            className="w-56"
+            alt="Copyright"
           />
         </div>
         <div data-aos="fade-left">
           <img
-            src="https://kidverz.myshopify.com/cdn/shop/files/copyright-image-03.png?v=1697103126"
-            alt=""
+            src="/assets/footer-1.png"
+            alt="Copyright"
+            className="w-60"
           />
         </div>
       </div>
+
+
+     
+
+    </div>
+
+    <div className="bg-[#FDEAE1] md:px-8 pb-16">
+    <div className="responsive-box p-4 md:p-8 flex flex-col md:flex-row justify-center md:justify-between items-center bg-gray-800">
+  {/* Left Section: Footer Text */}
+  <p className="text-white text-sm md:text-base">
+  © {new Date().getFullYear()}, Azmain Kids Mart - Baby Clothing Store. Powered by <a href="https://ezicalc.com/" target="_blank" rel="noopener noreferrer"><span className="font-bold text-lg text-blue-700">Ezicalc</span></a>
+  </p>
+
+  {/* Right Section: Payment Logos */}
+  <div className="flex space-x-2 md:mt-0 mt-2">
+    <img src="/assets/visa-logo.png" alt="Visa" className="w-8 h-6 " />
+    <img src="/assets/mastercard-logo.png" alt="Mastercard" className="w-8 h-6" />
+    <img src="/assets/paypal-logo.png" alt="PayPal" className="w-8 h-6" />
+  </div>
+</div>
+    </div>
     </div>
   );
 };

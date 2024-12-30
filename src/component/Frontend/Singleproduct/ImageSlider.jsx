@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { WishContext } from "../../Frontend/WishContext";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { BsArrowUpSquare } from "react-icons/bs";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const ImageSlider = ({
   products = [],
@@ -111,17 +112,34 @@ const ImageSlider = ({
 
               const highPrice = Math.max(...prices); // Get maximum price
               const lowPrice = Math.min(...prices); // Get minimum price
+              // Check if product is new
+              const isProductNew = (createdAt) => {
+                const currentDate = new Date();
+                const createdDate = new Date(createdAt);
+                const timeDifference = currentDate - createdDate;
+                const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert ms to days
+                return daysDifference <= 7; // If the product was created in the last 7 days
+              };
+
+              const newProduct = isProductNew(product.created_at);
+
+              const cartTooltipId = `cart-tooltip-${product.id}`;
+              const wishlistTooltipId = `wishlist-tooltip-${product.id}`;
+              const viewTooltipId = `view-tooltip-${product.id}`;
+
               return (
                 <div
                   key={index}
                   className="border shadow flex flex-col group relative"
                 >
                   <div className="bg-gray-100 relative">
-                    <img
-                      src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                      alt={product.offer}
-                      className="w-full h-96"
-                    />
+                    <Link to={`/singleproduct/${product.name}-${product.id}`}>
+                      <img
+                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                        alt={product.name}
+                        className="w-full h-96"
+                      />
+                    </Link>
 
                     <div className="absolute right-1 top-2 px-1 bg-gray-200 flex items-center">
                       {/* Stars */}
@@ -140,39 +158,67 @@ const ImageSlider = ({
                         ({product.rating})
                       </span>
                     </div>
-                    {/* Icons */}
-                    <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
-                      {[
-                        {
-                          icon: "fas fa-shopping-cart",
-                          onClick: () => openModal(product),
-                        },
-                        {
-                          icon: "far fa-heart",
-                          onClick: () => addToWishlist(product),
-                        },
 
-                        {
-                          icon: "far fa-eye",
-                          link: `/singleproduct/${product.name}-${product.id}`,
-                        },
-                        { icon: "fa fa-exchange-alt" },
-                      ].map(({ icon, onClick, link }, index) => (
-                        <div
-                          key={index}
-                          className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
-                        >
-                          {link ? (
-                            <Link to={link}>
-                              <i className={`text-white ${icon}`}></i>
-                            </Link>
-                          ) : (
-                            <button onClick={onClick}>
-                              <i className={`text-white ${icon}`}></i>
-                            </button>
-                          )}
-                        </div>
-                      ))}
+                    {/* New Product Badge */}
+                    {newProduct && (
+                      <div className="absolute top-2 left-2 bg-yellow-500 starburst flex justify-center items-center text-white  px-2 py-1 rounded">
+                        New
+                      </div>
+                    )}
+
+                    {/* Icons */}
+
+                    <div className="absolute flex justify-center gap-2 bottom-4 w-full opacity-0 group-hover:opacity-100 transition-transform duration-300 transform translate-y-full group-hover:translate-y-1">
+                      <button
+                        data-tooltip-id={cartTooltipId}
+                        onClick={() => openModal(product)}
+                        className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                      >
+                        <i className="text-white fas fa-shopping-cart"></i>
+                      </button>
+                      <ReactTooltip
+                        id={cartTooltipId}
+                        place="top"
+                        content="Add to Cart"
+                        style={{
+                          fontSize: "12px", // Adjust text size
+                          padding: "6px 8px", // Adjust padding
+                        }}
+                      />
+
+                      <button
+                        data-tooltip-id={wishlistTooltipId}
+                        onClick={() => addToWishlist(product)}
+                        className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                      >
+                        <i className="text-white far fa-heart"></i>
+                      </button>
+                      <ReactTooltip
+                        id={wishlistTooltipId}
+                        place="top"
+                        content="Add to Wishlist"
+                        style={{
+                          fontSize: "12px", // Adjust text size
+                          padding: "6px 8px", // Adjust padding
+                        }}
+                      />
+
+                      <Link
+                        data-tooltip-id={viewTooltipId}
+                        to={`/singleproduct/${product.name}-${product.id}`}
+                        className="size-8 md:size-10 bg-gray-800 flex justify-center items-center rounded hover:bg-[#EB1E39] transition duration-300"
+                      >
+                        <i className="text-white far fa-eye"></i>
+                      </Link>
+                      <ReactTooltip
+                        id={viewTooltipId}
+                        place="top"
+                        content="View Details"
+                        style={{
+                          fontSize: "12px", // Adjust text size
+                          padding: "6px 8px", // Adjust padding
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -218,20 +264,6 @@ const ImageSlider = ({
                         </div>
                       )}
                     </p>
-                    <div className="mt-1 md:mt-2 flex gap-2">
-                      {["red", "yellow", "purple", "green", "blue"].map(
-                        (color) => (
-                          <button
-                            key={color}
-                            className="rounded-full w-6 h-6 border-2 border-gray-400 flex justify-center items-center"
-                          >
-                            <div
-                              className={`bg-${color}-500 rounded-full w-4 h-4`}
-                            ></div>
-                          </button>
-                        )
-                      )}
-                    </div>
                   </div>
                 </div>
               );
@@ -240,7 +272,7 @@ const ImageSlider = ({
         </div>
 
         {/* Navigation Arrows */}
-        <div className="absolute top-36 -left-2 ">
+        <div className="absolute top-44 -left-2 ">
           <button
             onClick={handlePrev}
             className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#EB1E39] "
@@ -248,7 +280,7 @@ const ImageSlider = ({
             <i className="fas fa-arrow-left md:text-lg group-hover:text-white text-gray-800"></i>
           </button>
         </div>
-        <div className="absolute top-36 -right-2 ">
+        <div className="absolute top-44 -right-2 ">
           <button
             onClick={handleNext}
             className="size-10 md:size-14 bg-white border-2 group border-gray-400 rounded-full flex justify-center items-center  hover:bg-[#EB1E39] "
@@ -267,22 +299,20 @@ const ImageSlider = ({
                   className="bg-white p-2 md:p-5 rounded shadow-lg w-96 sm:w-[500px]"
                 >
                   <div className="grid grid-cols-2 md:grid-cols-3 justify-center items-center gap-3">
-                    <Link to={`/singleproduct/${product.name}-${product.id}`}>
-                      <img
-                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                        alt={product.name}
-                        className="w-full h-auto rounded-lg"
-                      />
+                    <img
+                      src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                      alt={product.name}
+                      className="w-full h-auto rounded-lg"
+                    />
 
-                      <img
-                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                        alt="Product"
-                        className={`md:left-10 w-[100px] h-[120px] md:absolute hidden opacity-0 invisible z-50 ${
-                          imageFly && "popup-flying-div popup-mobile-flying-div"
-                        }`}
-                        onAnimationEnd={() => setimageFly(false)}
-                      />
-                    </Link>
+                    <img
+                      src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                      alt="Product"
+                      className={`md:left-10 w-[100px] h-[120px] md:absolute hidden opacity-0 invisible z-50 ${
+                        imageFly && "popup-flying-div popup-mobile-flying-div"
+                      }`}
+                      onAnimationEnd={() => setimageFly(false)}
+                    />
 
                     <div className="md:col-span-2 flex-1 sm:space-y-2">
                       <div className="flex justify-between">
@@ -450,14 +480,14 @@ const ImageSlider = ({
                   <div className="grid grid-cols-2 gap-3 text-center mt-2 sm:mt-5">
                     <button
                       className=" bg-rose-600 py-2 w-full text-white rounded-lg flex items-center justify-center"
-                      onClick={handleAddToCart}
+                      onClick={(e) => handleAddToCart(e, false)} // isBuyNow = false
                     >
                       {/* <FaTimesCircle className="md:mr-2" size={24} /> <span>ক্যান্সেল করুন</span> */}
                       Add To Cart
                     </button>
                     <button
                       className=" bg-[#31a0d4] py-2 w-full text-white rounded-lg"
-                      onClick={handleAddToCart}
+                      onClick={(e) => handleAddToCart(e, true)} // isBuyNow = true
                     >
                       Buy Now{" "}
                     </button>

@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import Progressbar from "../../component/Frontend/Singleproduct/Progressbar";
 import ImageSlider from "../../component/Frontend/Singleproduct/ImageSlider";
 import ProductInfo from "../../component/Frontend/Singleproduct/ProductInfo";
 import Footer from "../../component/Frontend/Footer";
@@ -11,6 +10,7 @@ import { FaMinus, FaPlus, FaTimesCircle } from "react-icons/fa";
 
 import { BsArrowUpSquare } from "react-icons/bs";
 import Carticon from "../../component/Frontend/Carticon";
+import Navbar from "../../component/Frontend/Navbar";
 
 const SingleProduct = ({ products = [] }) => {
   const { addToCart } = useContext(CartContext);
@@ -54,7 +54,7 @@ const SingleProduct = ({ products = [] }) => {
 
   useEffect(() => {
     if (currentVariation?.stock) {
-      const maxStock = 100; // Assuming 100 is the full stock (you can adjust this to be the max stock for the product)
+      const maxStock = currentVariation.maxStock || 100; // Assuming maxStock is available in currentVariation
       const stockPercentage = (currentVariation.stock / maxStock) * 100;
       setProgressBarWidth(stockPercentage);
     }
@@ -158,7 +158,7 @@ const SingleProduct = ({ products = [] }) => {
 
   const varientErr = document.getElementById("error");
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = (e, isBuyNow = false) => {
     e.preventDefault();
 
     if (product.has_variation == 1) {
@@ -170,9 +170,9 @@ const SingleProduct = ({ products = [] }) => {
         if (varientErr && !modalOpen) {
           varientErr.scrollIntoView({ behavior: "smooth", block: "center" });
         }
+        return; // Stop further execution if variations are incomplete
       } else {
         setIsToastVisible(false);
-        // image fly animation
         setimageFly(false);
         requestAnimationFrame(() => {
           setimageFly(true);
@@ -180,15 +180,18 @@ const SingleProduct = ({ products = [] }) => {
         addToCart(product, quantity, currentId, currentVariation, currentPrice);
       }
     } else {
-      // image fly animation
       setimageFly(false);
       requestAnimationFrame(() => {
         setimageFly(true);
       });
       addToCart(product, quantity, currentId, currentVariation, currentPrice);
     }
-  };
 
+    // Navigate to the checkout page only for "Buy Now"
+    if (isBuyNow) {
+      navigate("/checkout");
+    }
+  };
   // Modal..............
 
   const openModal = (product) => {
@@ -240,6 +243,7 @@ const SingleProduct = ({ products = [] }) => {
 
   return (
     <div className="overflow-hidden">
+      <Navbar />
       <Carticon />
       <div className="container  mx-auto">
         <div className="text-sm mt-4 px-6  ">
@@ -270,8 +274,8 @@ const SingleProduct = ({ products = [] }) => {
                     alt={`Thumbnail ${index + 1}`}
                     className={`border w-16 md:w-24 cursor-pointer ${
                       selectedImage === image
-                        ? "border-orange-500"
-                        : "hover:border-orange-500"
+                        ? "border-rose-500"
+                        : "hover:border-rose-500"
                     }`}
                     onClick={() => handleImageClick(image)} // Ensure it sets the clicked image as selected
                   />
@@ -315,19 +319,22 @@ const SingleProduct = ({ products = [] }) => {
                 </div>{" "}
                 <div className="flex space-x-2">
                   {/* Comparison Icon */}
-                  <button className="flex w-8 h-8 md:w-10 md:h-10  bg-gray-100  rounded-full justify-center items-center  transition duration-300">
+                  {/* <button className="flex w-8 h-8 md:w-10 md:h-10  bg-gray-100  rounded-full justify-center items-center  transition duration-300">
                     <i className="fa fa-exchange-alt"></i>
-                  </button>
+                  </button> */}
 
                   {/* Wishlist Icon */}
-                  <button onClick={addToWishlist} className="flex hover:bg-black hover:text-white  w-8 h-8 md:w-10 md:h-10  bg-gray-100 rounded-full  justify-center items-center  transition duration-300">
+                  <button
+                    onClick={() => addToWishlist(product)}
+                    className="flex hover:bg-black hover:text-white  w-8 h-8 md:w-10 md:h-10  bg-gray-100 rounded-full  justify-center items-center  transition duration-300"
+                  >
                     <i className="far fa-heart"></i>
                   </button>
 
                   {/* Cart Icon */}
-                  <button className=" w-8 h-8 md:w-10 md:h-10 flex bg-gray-100  rounded-full justify-center items-center  transition duration-300">
+                  {/* <button className=" w-8 h-8 md:w-10 md:h-10 flex bg-gray-100  rounded-full justify-center items-center  transition duration-300">
                     <i className="fas fa-share-alt"></i>
-                  </button>
+                  </button> */}
                 </div>
               </div>
               <div className="text-gray-800">
@@ -460,8 +467,8 @@ const SingleProduct = ({ products = [] }) => {
                                   selectedVariations[
                                     variation.variation.name
                                   ] === value
-                                    ? "bg-[#31a0d4] text-white"
-                                    : "bg-[#ED1D38] hover:bg-[#31a0d4] text-white"
+                                    ? "bg-rose-600 text-white"
+                                    : "bg-gray-200 hover:text-white hover:bg-rose-500 text-gray-800"
                                 }`}
                               >
                                 {value}
@@ -492,15 +499,13 @@ const SingleProduct = ({ products = [] }) => {
                   </p>
                 </div>
 
-                {/* Progress Bar for the selected variation */}
                 <div className="w-full my-3">
                   {/* Stock message */}
                   <div className="flex items-center text-red-600 font-semibold mb-2">
                     <span className="text-lg mr-2">🔥</span>
-
                     <p>
                       {currentVariation && currentVariation.stock === 0
-                        ? " Stock Out"
+                        ? "Stock Out"
                         : `HURRY! ONLY ${
                             currentVariation?.stock || 80
                           } ITEMS LEFT IN STOCK`}
@@ -511,9 +516,12 @@ const SingleProduct = ({ products = [] }) => {
                   <div className="w-full bg-gray-200 rounded h-4 relative overflow-hidden">
                     {/* Dynamic progress bar */}
                     <div
-                      className="h-full bg-gradient-to-r from-red-500 to-orange-400"
+                      className="h-full bg-gradient-to-r from-red-500 to-rose-400"
                       style={{
-                        width: `${progressBarWidth}%`, // Set the width with calculated progressBarWidth
+                        width:
+                          currentVariation?.stock === 0
+                            ? "0%"
+                            : `${progressBarWidth}%`, // Use progressBarWidth state
                       }}
                     >
                       {/* Striped overlay */}
@@ -556,7 +564,7 @@ const SingleProduct = ({ products = [] }) => {
                 {/* Add to Cart Button */}
                 <div className="col-span-6 md:col-span-5">
                   <button
-                    onClick={handleAddToCart}
+                    onClick={(e) => handleAddToCart(e, false)} // isBuyNow = false
                     className="py-2 w-full md:text-lg font-semibold bg-[#ED1D38] text-white rounded hover:bg-[#ff3d57] ${
                     "
                     // Visually indicate inactive state, but still keep the button clickable.
@@ -566,11 +574,12 @@ const SingleProduct = ({ products = [] }) => {
                 </div>
 
                 {/* Buy Now Button */}
-                <Link to="checkout" className="col-span-6 md:col-span-5">
-                  <button
-                    onClick={handleAddToCart}
-                    className="py-2 w-full md:text-lg font-semibold bg-[#31a0d4] text-white rounded hover:bg-[#2c89b4] "
-                  >
+                <Link
+                  to="/checkout"
+                  className="col-span-6 md:col-span-5"
+                  onClick={(e) => handleAddToCart(e, true)} // isBuyNow = true
+                >
+                  <button className="py-2 w-full md:text-lg font-semibold bg-[#31a0d4] text-white rounded hover:bg-[#2c89b4]">
                     Buy Now
                   </button>
                 </Link>
@@ -620,7 +629,6 @@ const SingleProduct = ({ products = [] }) => {
             modalOpen={modalOpen}
             setModalOpen={setModalOpen} // Passing functions as props
             quantity={quantity}
-
           />
         </div>
       </div>
@@ -639,14 +647,14 @@ const SingleProduct = ({ products = [] }) => {
         <div className="flex justify-between w-full">
           <button
             className="py-3 w-full text-white  text-lg  bg-[#EB1E39] font-semibold"
-            onClick={handleAddToCart}
+            onClick={(e) => handleAddToCart(e, false)} // isBuyNow = false
           >
             <i className="fas fa-shopping-cart mr-2"></i>Add To Cart
           </button>
 
           <Link
             to="/checkout"
-            onClick={handleAddToCart}
+            onClick={(e) => handleAddToCart(e, true)} // isBuyNow = true
             className="w-full relative text-white flex text-lg justify-center items-center text-nowrap font-semibold bg-[#31a0d4]"
           >
             <span className="absolute border-r-[24px] border-l-transparent border-r-transparent border-t-[50px] border-[#EB1E39] left-0 top-0"></span>
@@ -654,8 +662,11 @@ const SingleProduct = ({ products = [] }) => {
           </Link>
         </div>
       </div>
-      {/* Footer Section */}
-      <Footer />
+     <div className="pb-6">
+
+       {/* Footer Section */}
+       <Footer />
+     </div>
     </div>
   );
 };

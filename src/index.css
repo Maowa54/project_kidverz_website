@@ -313,13 +313,13 @@ button:disabled {
   @keyframes single_mobile_fly_to_cart {
     0% {
       left: 20%;
-      top: 10%;
+      top: 30%;
       opacity: 1;
     }
 
     100% {
-      left: calc(100% - 198px);
-      top: 5%;
+      left: calc(100% - 200px);
+      top: 25%;
       opacity: 0.5;
       transform: scale(0.05);
     }
@@ -412,3 +412,43 @@ button:disabled {
     }
   }
 }
+
+.starburst {
+  width: 60px; /* adjust to control the size */
+  aspect-ratio: 1;
+  clip-path: polygon(100% 50%,80.43% 59.89%,90.45% 79.39%,68.81% 75.89%,65.45% 97.55%,50% 82%,34.55% 97.55%,31.19% 75.89%,9.55% 79.39%,19.57% 59.89%,0% 50%,19.57% 40.11%,9.55% 20.61%,31.19% 24.11%,34.55% 2.45%,50% 18%,65.45% 2.45%,68.81% 24.11%,90.45% 20.61%,80.43% 40.11%);
+}
+
+
+.bottom-border {
+  --mask: 
+  linear-gradient(to top,#0000 13px,#000 0),
+  radial-gradient(13px,#000 98%,#0000) bottom/24.05px 26px;
+-webkit-mask: var(--mask);
+        mask: var(--mask);
+}
+
+@media (max-width: 767px) { /* Target small screens */
+  .responsive-box {
+    background-color: #ED1D38;
+    --mask: 
+      linear-gradient(0deg,#0000 24px,#000 0) 0 12px,
+      radial-gradient(12px,#000 98%,#0000) 50%/22.2px 24px repeat space;
+    -webkit-mask: var(--mask);
+            mask: var(--mask);
+  }
+}
+
+@media (min-width: 768px) { /* Target medium screens and above */
+  .responsive-box {
+    background-color: #ED1D38;
+    --mask: linear-gradient(#000 0 0) 50% / calc(100% - 22.2px)
+        calc(100% - 22.2px) no-repeat,
+      radial-gradient(farthest-side, #000 98%, #0000) 0 0/24px 24px round;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+  }
+}
+
+
+

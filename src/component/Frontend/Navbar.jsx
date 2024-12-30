@@ -50,8 +50,8 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <div className={`lg:px-0  px-2 container mx-auto  `}>
-      <div className="box mt-3 lg px-6 py-4 lg:py-0 flex justify-between items-center text-gray-800">
+    <div className={`lg:px-0 pt-4 px-2 container mx-auto  `}>
+      <div className="box  lg px-6 py-4 lg:py-0 flex justify-between items-center text-gray-800">
         {/* Left: Logo */}
         <div className="flex justify-center items-center lg:space-x-4 ">
           <Link to="/">
@@ -135,30 +135,24 @@ const Navbar = () => {
 
           {/* Navigation Items */}
           <div className="flex mb-2 justify-center space-x-6">
-            <a
-              href="#home"
+            <Link
+              to="/"
               className="text-white font-semibold tracking-wider hover:text-blue-500"
             >
               Home <span className="border-white border-r-2 ml-6"></span>
-            </a>
-            <a
-              href="#shop"
+            </Link>
+            <Link
+              to="/shop"
               className="text-white   font-semibold tracking-wider hover:text-blue-500"
             >
               Shop <span className="border-white border-r-2 ml-6"></span>
-            </a>
-            <a
-              href="#collections"
+            </Link>
+            <Link
+              to="/collection"
               className="text-white font-semibold tracking-wider hover:text-blue-500"
             >
-              Collections <span className="border-white border-r-2 ml-6"></span>
-            </a>
-            <a
-              href="#pages"
-              className="text-white font-semibold tracking-wider hover:text-blue-500"
-            >
-              Pages
-            </a>
+              Collections
+            </Link>
           </div>
         </div>
 
@@ -204,14 +198,12 @@ const Navbar = () => {
           <div className="  hidden lg:block w-[2px] h-16 bg-white"></div>
 
           {/* Comparison Icon */}
-          <div className="hidden md:flex  relative w-8 h-8 md:w-10 md:h-10  bg-white  justify-center items-center rounded transition duration-300">
+          {/* <div className="hidden md:flex  relative w-8 h-8 md:w-10 md:h-10  bg-white  justify-center items-center rounded transition duration-300">
             <i className="fa fa-exchange-alt"></i>
             <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-black text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
               3
             </span>
-          </div>
-
-        
+          </div> */}
 
           {/* Wishlist Icon */}
           <button
@@ -289,30 +281,17 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="flex flex-col space-y-4 p-4">
-          {["Home", "Shop", "Collections", "Pages"].map((item) => (
-            <div key={item}>
-              <div
-                onClick={() => toggleSubMenu(item)}
-                className="flex justify-between items-center cursor-pointer text-lg tracking-wider font-semibold"
-              >
-                <span>{item}</span>
-                {activeSubMenu === item ? "-" : "+"}
-              </div>
+        <div className="flex flex-col pb-3  text-lg md:text-2xl font-semibold space-y-4 px-2 py-4">
+          <Link to="/" className="border-b px-2 pb-4">
+            Home
+          </Link>
+          <Link to="/shop" className="border-b px-2 pb-4">
+            Shop
+          </Link>
 
-              {/* Sub-menu */}
-              {activeSubMenu === item && (
-                <div className="pl-6 space-y-2">
-                  <a href={`#${item.toLowerCase()}1`} className="block text-sm">
-                    Sub-item 1
-                  </a>
-                  <a href={`#${item.toLowerCase()}2`} className="block text-sm">
-                    Sub-item 2
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
+          <Link to="/collection" className="border-b px-2 pb-4">
+            Collections
+          </Link>
         </div>
       </div>
       {/* Cart Content */}
