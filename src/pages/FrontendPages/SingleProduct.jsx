@@ -18,10 +18,6 @@ const SingleProduct = ({ products = [] }) => {
   const { addToWishlist } = useContext(WishContext);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [selectedImage, setSelectedImage] = useState(
-    "/assets/shopify-image-Recovered_deff5341-e76f-4831-ae3f-94cfb9cb51c3.png"
-  );
-
   const { cartCount } = useContext(CartContext);
 
   const [product, setProduct] = useState(null);
@@ -53,6 +49,21 @@ const SingleProduct = ({ products = [] }) => {
 
   const [progressBarWidth, setProgressBarWidth] = useState(80); // Set initial value to 80%
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // Set the default selected image if the product object is available
+    if (product && product.image) {
+      setSelectedImage(
+        `https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`
+      );
+    }
+  }, [product]);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image); // Update the selected image
+  };
+
   useEffect(() => {
     if (currentVariation?.stock) {
       const maxStock = currentVariation.maxStock || 100; // Assuming maxStock is available in currentVariation
@@ -60,10 +71,6 @@ const SingleProduct = ({ products = [] }) => {
       setProgressBarWidth(stockPercentage);
     }
   }, [currentVariation]);
-
-  const handleImageClick = (imageSrc) => {
-    setSelectedImage(imageSrc);
-  };
 
   useEffect(() => {
     if (products.length > 0 && product_id) {
@@ -263,22 +270,22 @@ const SingleProduct = ({ products = [] }) => {
             <div className="flex flex-col md:flex-row mt-2 gap-4">
               {/* Thumbnail Images */}
               <div className="order-2 md:order-1 flex flex-row md:flex-col gap-4 mt-4 md:mt-0">
-                {[
-                  `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
-                  `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
-                  `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
-                  `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
-                ].map((image, index) => (
+                {product?.product_images?.slice(0, 4).map((imgObj, index) => (
                   <img
                     key={index}
-                    src={image}
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${imgObj.name}`}
                     alt={`Thumbnail ${index + 1}`}
                     className={`border w-16 md:w-28 cursor-pointer ${
-                      selectedImage === image
+                      selectedImage ===
+                      `https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${imgObj.name}`
                         ? "border-rose-500"
                         : "hover:border-rose-500"
                     }`}
-                    onClick={() => handleImageClick(image)} // Ensure it sets the clicked image as selected
+                    onClick={() =>
+                      handleImageClick(
+                        `https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${imgObj.name}`
+                      )
+                    }
                   />
                 ))}
               </div>
@@ -286,12 +293,12 @@ const SingleProduct = ({ products = [] }) => {
               {/* Selected Image */}
               <div className="order-1 md:order-2 flex justify-center">
                 <img
-                  src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                  src={selectedImage}
                   alt="Product"
-                  className="w-full h-auto object-cover "
+                  className="w-full h-auto object-cover"
                 />
                 <img
-                  src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                  src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
                   alt="Product"
                   className={`w-[300px] fixed h-[400px] hidden opacity-0 invisible z-50 ${
                     imageFly &&

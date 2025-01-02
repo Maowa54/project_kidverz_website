@@ -83,7 +83,6 @@ const Checkout = () => {
     if (!address) newErrors.address = ["Address is required."];
     if (!deliveryCharge)
       newErrors.deliveryCharge = ["Please select a delivery charge option."];
-   
 
     if (Object.keys(newErrors).length > 0) {
       // If there are errors, set them and stop submission
@@ -191,7 +190,7 @@ const Checkout = () => {
                             </p>
                           </div>
                           <img
-                            src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                            src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
                             className="size-16 md:size-20"
                             alt={product?.name}
                           />
@@ -466,9 +465,9 @@ const Checkout = () => {
         </button>
       </div>
 
-     <div className="hidden md:block">
-     <Footer/>
-     </div>
+      <div className="hidden md:block">
+        <Footer />
+      </div>
     </div>
   );
 };

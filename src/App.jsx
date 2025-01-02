@@ -20,7 +20,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        "https://admin.ezicalc.com/api/public/business/products/get/21"
+        "https://admin.beta.ezicalc.com/api/public/business/products/get/21"
       );
 
       if (response.data.status) {

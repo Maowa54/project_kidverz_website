@@ -305,8 +305,8 @@ const Section6 = ({ products = [] }) => {
                 <div className="bg-gray-100 relative">
                   <Link to={`/singleproduct/${product.name}-${product.id}`}>
                     <img
-                      src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                      alt={product.name}
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
+                    alt={product.name}
                       className="w-full h-96"
                     />
                   </Link>
@@ -452,14 +452,14 @@ const Section6 = ({ products = [] }) => {
                   <div className="grid grid-cols-2 md:grid-cols-3 justify-center items-center gap-3">
                     <div className="">
                       <img
-                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                        alt={product.name}
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
+                    alt={product.name}
                         className="w-full h-auto rounded-lg"
                       />
 
                       <img
-                        src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                        alt="Product"
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
+                    alt="Product"
                         className={`md:left-10 w-[100px] h-[120px] md:absolute hidden opacity-0 invisible z-50 ${
                           imageFly
                             ? "popup-flying-div popup-mobile-flying-div"

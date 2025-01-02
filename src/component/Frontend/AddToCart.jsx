@@ -43,8 +43,8 @@ const AddToCart = ({ isCartOpen, toggleCart, productId }) => {
           cart.map((product) => (
             <div key={product.id} className="flex items-center border-b pb-4">
               <img
-                src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                alt={product.name || "Product"}
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
+                    alt={product.name || "Product"}
                 className="size-20 object-cover mr-4"
               />
               <div className="flex-1">

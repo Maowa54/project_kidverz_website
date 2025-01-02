@@ -187,7 +187,7 @@ const Checkout = () => {
                             </p>
                           </div>
                           <img
-                            src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
+                            src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
                             className="size-16 md:size-20"
                             alt={product?.name}
                           />

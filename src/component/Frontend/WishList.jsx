@@ -40,8 +40,8 @@ const WishList = ({ isWishOpen, toggleWish }) => {
                 to={`/singleproduct/${product.name}-${product.id}`}
               >
                 <img
-                  src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
-                  alt={product.name || "Product"}
+                    src={`https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev/15/image/${product.image}`}
+                    alt={product.name || "Product"}
                   className="w-20 h-20 object-cover mr-4"
                 />
               </Link>
