@@ -9,7 +9,7 @@ export default {
       fontFamily: {
         neucha: ['Neucha', 'cursive'],
         galada: ['Galada', 'cursive'],
-
+        pollinator: ['Pollinator', 'serif'],
 
       },
 

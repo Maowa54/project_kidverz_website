@@ -32,7 +32,7 @@ const Home = ({products}) => {
 
     {/* Fifth Section */}
 
-    <Section5 products={products}/>
+    {/* <Section5 products={products}/> */}
 
     {/* Sixth Section */}
 
@@ -41,7 +41,7 @@ const Home = ({products}) => {
 
      {/* Seventh Section */}
 
-     <Section7 products={products}/>
+     {/* <Section7 products={products}/> */}
 
  {/* Footer Section */}
  <Footer/>

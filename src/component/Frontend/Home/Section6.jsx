@@ -180,6 +180,8 @@ const Section6 = ({ products = [] }) => {
   }, [modalOpen, setModalOpen]);
 
   console.log(products);
+
+  
   // Adjust the number of products to show based on screen size
   const updateProductsToShow = () => {
     const screenWidth = window.innerWidth;
@@ -225,7 +227,7 @@ const Section6 = ({ products = [] }) => {
   return (
     <div>
       {/* Blue Section */}
-      <div className="bg-[#41C1CA] py-4 md:py-16 mt-2 md:mt-8 relative">
+      <div className="bg-[#41C1CA] py-4 md:py-16 mt-4 md:mt-16 relative">
         <div className="px-8 h-48">
           <h1 className="text-white text-nowrap text-3xl md:text-5xl font-semibold tracking-wider">
             Trending Products

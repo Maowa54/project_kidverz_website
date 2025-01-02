@@ -9,7 +9,8 @@ export const WishProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      const existingWishlist =
+        JSON.parse(localStorage.getItem("wishlist")) || [];
       setWishlist(existingWishlist);
     } catch (error) {
       console.error("Failed to parse wishlist from localStorage", error);
@@ -44,24 +45,15 @@ export const WishProvider = ({ children }) => {
   };
 
   const removeFromWishlist = (productId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, remove it!",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedWishlist = wishlist.filter((product) => product.id !== productId);
-        setWishlist(updatedWishlist);
-        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    const updatedWishlist = wishlist.filter(
+      (product) => product.id !== productId
+    );
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
-        toast.success("Product Removed from Wishlist!", {
-          position: "top-right",
-          duration: 1000,
-        });
-      }
+    toast.success("Product Removed from Wishlist!", {
+      position: "top-right",
+      duration: 1000,
     });
   };
 

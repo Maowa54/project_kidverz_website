@@ -145,14 +145,14 @@ const Navbar = () => {
               to="/shop"
               className="text-white   font-semibold tracking-wider hover:text-blue-500"
             >
-              Shop <span className="border-white border-r-2 ml-6"></span>
+              Shop <span className="border-white  ml-6"></span>
             </Link>
-            <Link
+            {/* <Link
               to="/collection"
               className="text-white font-semibold tracking-wider hover:text-blue-500"
             >
               Collections
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -289,9 +289,9 @@ const Navbar = () => {
             Shop
           </Link>
 
-          <Link to="/collection" className="border-b px-2 pb-4">
+          {/* <Link to="/collection" className="border-b px-2 pb-4">
             Collections
-          </Link>
+          </Link> */}
         </div>
       </div>
       {/* Cart Content */}

@@ -8,6 +8,7 @@ import { ImSpinner10 } from "react-icons/im";
 import CustomSelect from "../../component/Frontend/Checkout/CustomSelect";
 import Carticon from "../../component/Frontend/Carticon";
 import Navbar from "../../component/Frontend/Navbar";
+import Footer from "../../component/Frontend/Footer";
 const Checkout = () => {
   const navigate = useNavigate();
 
@@ -82,9 +83,7 @@ const Checkout = () => {
     if (!address) newErrors.address = ["Address is required."];
     if (!deliveryCharge)
       newErrors.deliveryCharge = ["Please select a delivery charge option."];
-    if (!paymentMethod) {
-      newErrors.paymentMethod = "Payment method is required.";
-    }
+   
 
     if (Object.keys(newErrors).length > 0) {
       // If there are errors, set them and stop submission
@@ -466,6 +465,10 @@ const Checkout = () => {
           )}
         </button>
       </div>
+
+     <div className="hidden md:block">
+     <Footer/>
+     </div>
     </div>
   );
 };

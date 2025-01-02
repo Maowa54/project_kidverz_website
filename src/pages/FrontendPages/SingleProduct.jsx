@@ -5,6 +5,7 @@ import Footer from "../../component/Frontend/Footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { CartContext } from "../../component/Frontend/CartContext";
 import { WishContext } from "../../component/Frontend/WishContext";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import { FaMinus, FaPlus, FaTimesCircle } from "react-icons/fa";
 
@@ -246,7 +247,7 @@ const SingleProduct = ({ products = [] }) => {
       <Navbar />
       <Carticon />
       <div className="container  mx-auto">
-        <div className="text-sm mt-4 px-6  ">
+        <div className="text-sm md:text-base mt-4 px-6  ">
           <a href="/" className="text-[#d431bc] hover:underline">
             Home
           </a>{" "}
@@ -259,9 +260,9 @@ const SingleProduct = ({ products = [] }) => {
         {product ? (
           <div className="bg-white mt-2 px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Images Section */}
-            <div className="flex mt-2 gap-4">
+            <div className="flex flex-col md:flex-row mt-2 gap-4">
               {/* Thumbnail Images */}
-              <div className="flex flex-col space-y-3">
+              <div className="order-2 md:order-1 flex flex-row md:flex-col gap-4 mt-4 md:mt-0">
                 {[
                   `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
                   `https://admin.ezicalc.com/public/storage/product/${product?.image}`,
@@ -272,7 +273,7 @@ const SingleProduct = ({ products = [] }) => {
                     key={index}
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
-                    className={`border w-16 md:w-24 cursor-pointer ${
+                    className={`border w-16 md:w-28 cursor-pointer ${
                       selectedImage === image
                         ? "border-rose-500"
                         : "hover:border-rose-500"
@@ -283,7 +284,7 @@ const SingleProduct = ({ products = [] }) => {
               </div>
 
               {/* Selected Image */}
-              <div className=" justify-center items-center">
+              <div className="order-1 md:order-2 flex justify-center">
                 <img
                   src={`https://admin.ezicalc.com/public/storage/product/${product.image}`}
                   alt="Product"
@@ -326,10 +327,20 @@ const SingleProduct = ({ products = [] }) => {
                   {/* Wishlist Icon */}
                   <button
                     onClick={() => addToWishlist(product)}
+                    data-tooltip-id="wish-tooltip"
                     className="flex hover:bg-black hover:text-white  w-8 h-8 md:w-10 md:h-10  bg-gray-100 rounded-full  justify-center items-center  transition duration-300"
                   >
                     <i className="far fa-heart"></i>
                   </button>
+                  <ReactTooltip
+                    id="wish-tooltip"
+                    place="top"
+                    content="Add To Wishlist"
+                    style={{
+                      fontSize: "13px", // Adjust text size
+                      padding: "6px 8px", // Adjust padding
+                    }}
+                  />
 
                   {/* Cart Icon */}
                   {/* <button className=" w-8 h-8 md:w-10 md:h-10 flex bg-gray-100  rounded-full justify-center items-center  transition duration-300">
@@ -636,11 +647,11 @@ const SingleProduct = ({ products = [] }) => {
       <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden flex flex-col space-y-2 w-full">
         <div className="mx-2 p-2 rounded-md bg-gray-300 w-fit">
           <a
-            href="tel:+8801632460342"
+            href="tel:+8801581161718"
             className="flex items-center text-teal-800 font-semibold"
           >
             <i className="fas fa-phone mr-2 text-red-600"></i>
-            01632460342
+            01581161718
           </a>
         </div>
 
@@ -662,11 +673,10 @@ const SingleProduct = ({ products = [] }) => {
           </Link>
         </div>
       </div>
-     <div className="pb-6">
-
-       {/* Footer Section */}
-       <Footer />
-     </div>
+      <div className="pb-16 md:pb-6  bg-[#FDEAE1]">
+        {/* Footer Section */}
+        <Footer />
+      </div>
     </div>
   );
 };

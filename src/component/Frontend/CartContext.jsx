@@ -100,27 +100,18 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, remove it!',
-      cancelButtonText: 'Cancel',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedCart = cart.filter((product) => product.id !== productId);
-        setCart(updatedCart);
-        setCartCount(updatedCart.reduce((acc, item) => acc + item.quantity, 0));
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        setTotalPrice(updatedCart.reduce((acc, item) => acc + item.price, 0));
-        toast.success('Product Removed Successfully!', {
-          position: "top-right",
-          duration: 1000,
-        });
-      }
+    const updatedCart = cart.filter((product) => product.id !== productId);
+    setCart(updatedCart);
+    setCartCount(updatedCart.reduce((acc, item) => acc + item.quantity, 0));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setTotalPrice(updatedCart.reduce((acc, item) => acc + item.price, 0));
+  
+    toast.success('Product Removed Successfully!', {
+      position: "top-right",
+      duration: 1000,
     });
   };
+  
 
   return (
     <CartContext.Provider
